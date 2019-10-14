@@ -1,20 +1,20 @@
-# TEMPLATE
+# WIZ-LIKE (CORE SYSTEM)
 
-:heart: Game template with LÖVE
+:game_die: Wiz-like RPG core system with LÖVE
 
 ## Getting Started
 
 ### Quick Start
 
 1. Download and install [LÖVE](https://love2d.org/) 11.2.
-1. Download the latest version of `love-template.love` game distribution from release.
+1. Download the latest version of `love-wiz-core.love` game distribution from release.
 1. Open the distribution with LÖVE.
 
 ### Build and Run from Source
 
 ```
-git clone https://github.com/remyroez/love-template.git
-cd love-template/game
+git clone https://github.com/remyroez/love-wiz-core.git
+cd love-wiz-core/game
 love .
 ```
 
