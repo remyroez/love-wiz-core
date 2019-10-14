@@ -15,6 +15,8 @@ end
 
 function love.conf(t)
 	-- https://love2d.org/wiki/Config_Files
-	t.identity = 'love-template'
+	t.identity = 'love-wiz-core'
 	t.version = '11.2'
+
+	t.window.title = "WIZ-LIKE (CORE SYSTEM)"
 end
