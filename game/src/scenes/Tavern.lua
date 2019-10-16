@@ -7,6 +7,8 @@ local Super = require 'Scene'
 
 -- クラス
 local Scene = class('Tavern', Super)
+
+-- 組み込み
 Scene:include(require 'stateful')
 
 -- 初期化
@@ -57,6 +59,7 @@ function Scene:mousepressed(x, y, button, istouch, presses)
     self:popScene()
 end
 
+-- ステート追加
 local Add = Scene:addState 'Add'
 
 -- 描画
@@ -75,6 +78,7 @@ function Add:keypressed(key, scancode, isrepeat)
     end
 end
 
+-- ステート追加
 local Remove = Scene:addState 'Remove'
 
 -- 描画
@@ -93,9 +97,10 @@ function Remove:keypressed(key, scancode, isrepeat)
     end
 end
 
+-- ステート追加
 local Inspect = Scene:addState 'Inspect'
 
--- ステート開始
+-- ステート開始時
 function Inspect:enteredState(index)
     self.inspect = {
         index = index,
