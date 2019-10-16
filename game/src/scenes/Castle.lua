@@ -45,7 +45,7 @@ function Scene:keypressed(key, scancode, isrepeat)
         self:pushScene(require 'scenes.Temple' { app = self.app })
     elseif key == 'b' then
         self:pushScene(require 'scenes.Shop' { app = self.app })
-    elseif key == 'e' then
+    elseif key == 'e' or key == 'return' then
         self:swapScene(require 'scenes.Edge' { app = self.app })
     end
 end

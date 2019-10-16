@@ -39,7 +39,7 @@ function Scene:keypressed(key, scancode, isrepeat)
         self:pushScene(require 'scenes.Training' { app = self.app })
     elseif key == 'm' then
         self:pushScene(require 'scenes.Maze' { app = self.app })
-    elseif key == 'c' then
+    elseif key == 'c' or key == 'return' then
         self:swapScene(require 'scenes.Castle' { app = self.app })
     end
 end
