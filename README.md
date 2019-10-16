@@ -26,6 +26,7 @@ love .
 
 - [lume](https://github.com/rxi/lume) (commit [d8c2edd](https://github.com/rxi/lume/tree/d8c2eddc10af994ad4956cf0b7ae7188e86db47e) on 15 Mar)
 - [middleclass](https://github.com/kikito/middleclass) v4.1.1
+- [Stateful](https://github.com/kikito/stateful.lua) 1.0.5 (2017-08)
 
 ## License
 
