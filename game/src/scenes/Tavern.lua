@@ -85,7 +85,8 @@ local Remove = Scene:addState 'Remove'
 function Remove:draw()
     love.graphics.print(
         '[Gilgamesh\'s Tavern]\n' ..
-        'Remove\n'
+        'Remove who (#) ?\n' ..
+        'ENTER to Leave'
         , 0, 0
     )
 end
