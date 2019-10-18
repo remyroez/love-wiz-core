@@ -41,7 +41,7 @@ function Game:load(...)
     -- シーン
     self.scene = SceneStack()
     self.scene:add(
-        require 'scenes.InGame' {
+        require 'scenes.Castle' {
             app = self,
         }
     )
@@ -54,8 +54,6 @@ end
 
 -- 描画
 function Game:draw(...)
-    love.graphics.print('Hello, Game!', 0, 0)
-
     self.scene:draw()
 end
 
