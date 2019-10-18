@@ -14,7 +14,7 @@ function Scene:initialize(t)
 
     self.app = t.app or {}
 
-    self.text = '[Castle]\n'
+    self.text = '[Castle]\n\n'
     self.text = self.text .. 'G)ilgamesh\'s Tavern\n'
     self.text = self.text .. 'A)dventurer\'s Inn\n'
     self.text = self.text .. 'T)emple of Cant\n'

@@ -29,7 +29,7 @@ end
 -- 描画
 function Scene:draw()
     love.graphics.print(
-        '[Camp]\n' ..
+        '[Camp]\n\n' ..
         '#)Inspect\n' ..
         'R)eorder\n' ..
         'E)quip\n' ..
@@ -69,7 +69,7 @@ end
 -- 描画
 function Inspect:draw()
     love.graphics.print(
-        '[Camp]\n' ..
+        '[Camp]\n\n' ..
         'Inspect #' .. self.inspect.index
         , 0, 0
     )
@@ -88,7 +88,7 @@ local Reorder = Scene:addState 'Reorder'
 -- 描画
 function Reorder:draw()
     love.graphics.print(
-        '[Camp]\n' ..
+        '[Camp]\n\n' ..
         'Reorder\n'
         , 0, 0
     )
@@ -114,7 +114,7 @@ local Equip = Scene:addState 'Equip'
 -- 描画
 function Equip:draw()
     love.graphics.print(
-        '[Camp]\n' ..
+        '[Camp]\n\n' ..
         'Equip\n'
         , 0, 0
     )

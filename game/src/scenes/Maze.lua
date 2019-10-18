@@ -33,7 +33,7 @@ end
 function Scene:draw()
     if not self.visibleAll then return end
     love.graphics.print(
-        '[Maze]\n' ..
+        '[Maze]\n\n' ..
         'C)amp\n' ..
         'S)tatus\n' ..
         'I)nspect\n' ..
@@ -69,7 +69,7 @@ local Inspect = Scene:addState 'Inspect'
 -- 描画
 function Inspect:draw()
     love.graphics.print(
-        '[Maze]\n' ..
+        '[Maze]\n\n' ..
         'Inspect'
         , 0, 0
     )

@@ -14,7 +14,7 @@ function Scene:initialize(t)
 
     self.app = t.app or {}
 
-    self.text = '[Edge of Town]\n'
+    self.text = '[Edge of Town]\n\n'
     self.text = self.text .. 'T)raining\n'
     self.text = self.text .. 'M)aze\n'
     self.text = self.text .. 'C)astle\n'

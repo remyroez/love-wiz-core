@@ -29,7 +29,7 @@ end
 -- 描画
 function Scene:draw()
     love.graphics.print(
-        '[Gilgamesh\'s Tavern]\n' ..
+        '[Gilgamesh\'s Tavern]\n\n' ..
         'A)dd\n' ..
         'R)emove\n' ..
         '#)Inspect\n' ..
@@ -65,7 +65,7 @@ local Add = Scene:addState 'Add'
 -- 描画
 function Add:draw()
     love.graphics.print(
-        '[Gilgamesh\'s Tavern]\n' ..
+        '[Gilgamesh\'s Tavern]\n\n' ..
         '(Letter) Selects, Enter to leave\n'
         , 0, 0
     )
@@ -84,7 +84,7 @@ local Remove = Scene:addState 'Remove'
 -- 描画
 function Remove:draw()
     love.graphics.print(
-        '[Gilgamesh\'s Tavern]\n' ..
+        '[Gilgamesh\'s Tavern]\n\n' ..
         'Remove who (#) ?\n' ..
         'ENTER to Leave'
         , 0, 0
@@ -111,7 +111,7 @@ end
 -- 描画
 function Inspect:draw()
     love.graphics.print(
-        '[Gilgamesh\'s Tavern]\n' ..
+        '[Gilgamesh\'s Tavern]\n\n' ..
         'Inspect #' .. self.inspect.index
         , 0, 0
     )
