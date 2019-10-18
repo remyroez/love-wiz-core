@@ -52,10 +52,11 @@ end
 
 -- キー入力
 function love.keypressed(key, scancode, isrepeat)
+    --[[
     if key == 'escape' then
         -- 終了
         love.event.quit()
-    elseif key == 'printscreen' then
+    else]]if key == 'printscreen' then
         -- スクリーンショット
         love.graphics.captureScreenshot((screenshotDirectory .. '/') .. os.time() .. '.png')
     elseif key == 'f5' then
