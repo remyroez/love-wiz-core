@@ -41,7 +41,8 @@ end
 -- キー入力
 function Scene:keypressed(key, scancode, isrepeat)
     if key == 'c' then
-        self:pushState 'Create'
+        --self:pushState 'Create'
+        self:pushScene(require 'scenes.Make' { app = self.app })
     elseif key == 'i' then
         self:pushState 'Inspect'
     elseif key == 'r' then
