@@ -21,7 +21,7 @@ function Schema:initialize(t)
     self.hpdice = t.hpdice or {}
     self.hpdice.roll = self.hpdice.roll or 0
     self.hpdice.side = self.hpdice.side or 0
-    self.hpdice.modifier = self.hpdice.roll or 0
+    self.hpdice.modifier = self.hpdice.modifier or 0
 
     self.class = t.class or 0
 
