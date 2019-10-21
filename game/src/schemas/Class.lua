@@ -49,6 +49,8 @@ function Schema:initialize(t)
     self.attacktimes.modifier = self.attacktimes.modifier or 0
 
     self.attackspeed = t.attackspeed or 0
+
+    self.expchart = t.expchart or {}
 end
 
 return Schema
