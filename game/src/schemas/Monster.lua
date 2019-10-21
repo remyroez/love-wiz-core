@@ -29,6 +29,8 @@ function Schema:initialize(t)
 
     self.attacktimes = t.attacktimes or 0
 
+    self.attackdices = t.attackdices or {}
+
     self.exp = t.exp or 0
 
     self.drain = t.drain or 0
@@ -54,7 +56,7 @@ function Schema:initialize(t)
 
     self.resists = t.resists or {}
 
-    self.powers = t.powers or {}
+    self.features = t.features or {}
 end
 
 return Schema
