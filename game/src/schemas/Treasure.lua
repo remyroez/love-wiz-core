@@ -6,14 +6,19 @@ local Schema = class 'Treasure'
 
 -- 初期化
 function Schema:initialize(t)
-    self.items = t.items or {}
+    self.probability = t.probability or 0
+    self.min = t.min or 0
+    self.max = t.max or 0
+end
 
-    self.gold = t.gold or {}
-    self.gold.probability = self.gold.probability or 0
-    self.gold.min = self.gold.min or 0
-    self.gold.max = self.gold.max or 0
+function Schema:get(randomizer)
+    randomizer = randomizer or math.random
 
-    self.traps = t.traps or {}
+    local value = nil
+    if randomizer(100) <= self.probability then
+        value = randomizer(self.min, self.max)
+    end
+    return value
 end
 
 return Schema
