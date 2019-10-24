@@ -11,6 +11,16 @@ function Schema:initialize(t)
     self.modifier = t.modifier or 0
 end
 
+-- オーバーライド：呼び出し
+function Schema:__call(...)
+    return self:throw(...)
+end
+
+-- オーバーライド：文字列化
+function Schema:__tostring()
+    return '' .. self.roll .. 'd' .. self.side .. (self.modifier == 0 and '' or (self.modifier < 0 and self.modifier or ('+' .. self.modifier)))
+end
+
 -- ダイスロール
 function Schema:throw(randomizer)
     randomizer = randomizer or math.random
