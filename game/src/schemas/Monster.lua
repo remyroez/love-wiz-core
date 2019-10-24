@@ -4,58 +4,83 @@ local class = require 'middleclass'
 -- スキーマ
 local Schema = class 'Monster'
 
+-- クラス
+local Dice = require 'schemas.Dice'
+local Following = require 'schemas.Following'
+
 -- 初期化
 function Schema:initialize(t)
+    t = t or {}
+
+    -- 名前／複数形
     self.name = t.name or ''
     self.pname = t.pname or ''
+
+    -- 真名／複数形
     self.realname = t.realname or ''
     self.prealname = t.prealname or ''
 
+    -- 画像
     self.picture = t.picture or ''
 
-    self.numdice = t.numdice or {}
-    self.numdice.roll = self.numdice.roll or 0
-    self.numdice.side = self.numdice.side or 0
-    self.numdice.modifier = self.numdice.modifier or 0
+    -- 頭数ダイス
+    self.numdice = Dice(t.numdice)
 
-    self.hpdice = t.hpdice or {}
-    self.hpdice.roll = self.hpdice.roll or 0
-    self.hpdice.side = self.hpdice.side or 0
-    self.hpdice.modifier = self.hpdice.modifier or 0
+    -- ＨＰダイス
+    self.hpdice = Dice(t.hpdice)
 
-    self.class = t.class or 0
+    -- クラス
+    self.class = t.class or ''
 
+    -- アーマークラス
     self.ac = t.ac or 0
 
+    -- 攻撃回数
     self.attacktimes = t.attacktimes or 0
 
-    self.attackdices = t.attackdices or {}
+    -- 攻撃ダイス
+    self.attackdices = {}
+    if t.attackdices then
+        for _, dice in ipairs(t.attackdices) do
+            table.insert(self.attackdices, Dice(dice))
+        end
+    end
 
+    -- 経験値
     self.exp = t.exp or 0
 
+    -- エナジードレイン
     self.drain = t.drain or 0
+
+    -- ヒーリング
     self.heal = t.heal or 0
 
-    self.treasures = t.treasures or {}
-    self.treasures.wandering = self.treasures.wandering or ''
-    self.treasures.lair = self.treasures.lair or ''
+    -- チェストＩＤ（徘徊／玄室）
+    self.chests = t.chests or {}
+    self.chests.wandering = self.chests.wandering or ''
+    self.chests.lair = self.chests.lair or ''
 
-    self.team = t.team or {}
-    self.team.monster = self.team.monster or ''
-    self.team.probability = self.team.probability or 0
+    -- 後続
+    self.following = Following(t.following)
 
+    -- スペルレベル
     self.spelllevels = t.spelllevels or {}
     self.spelllevels.mage = self.spelllevels.mage or 0
     self.spelllevels.priest = self.spelllevels.priest or 0
 
+    -- 出現回数
     self.unique = t.unique or 0
 
+    -- ブレス
     self.breath = t.breath or ''
 
+    -- 呪文抵抗
     self.resistspell = t.resistspell or 0
 
+    -- 抵抗
     self.resists = t.resists or {}
 
+    -- 特徴
     self.features = t.features or {}
 end
 
