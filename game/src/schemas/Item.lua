@@ -6,6 +6,7 @@ local Schema = class 'Item'
 
 -- クラス
 local Dice = require 'schemas.Dice'
+local CharacterRequirement = require 'schemas.CharacterRequirement'
 
 -- 初期化
 function Schema:initialize(t)
@@ -21,16 +22,10 @@ function Schema:initialize(t)
     self.category = t.category or ''
 
     -- 装備可能
-    self.equipable = t.equipable or {}
-    self.equipable.classes = self.equipable.classes or {}
-    self.equipable.races = self.equipable.races or {}
-    self.equipable.alignments = self.equipable.alignments or {}
+    self.equipable = CharacterRequirement(t.equipable)
 
     -- 呪いの対象
-    self.curse = t.curse or {}
-    self.curse.classes = self.curse.classes or {}
-    self.curse.races = self.curse.races or {}
-    self.curse.alignments = self.curse.alignments or {}
+    self.cursable = CharacterRequirement(t.cursable)
 
     -- アーマークラス
     self.ac = t.ac or 0
