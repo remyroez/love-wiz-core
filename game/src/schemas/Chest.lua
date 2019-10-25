@@ -26,6 +26,11 @@ function Schema:initialize(t)
     self.traps = t.traps or {}
 end
 
+-- オーバーライド：呼び出し
+function Schema:__call(...)
+    return self:get(...)
+end
+
 function Schema:get(randomizer)
     local treasures = {}
 

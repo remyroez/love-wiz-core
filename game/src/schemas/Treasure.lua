@@ -18,6 +18,11 @@ function Schema:initialize(t)
     self.max = t.max or 0
 end
 
+-- オーバーライド：呼び出し
+function Schema:__call(...)
+    return self:get(...)
+end
+
 function Schema:get(randomizer)
     randomizer = randomizer or math.random
 
