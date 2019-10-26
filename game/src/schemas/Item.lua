@@ -7,6 +7,7 @@ local Schema = class 'Item'
 -- クラス
 local Dice = require 'schemas.Dice'
 local CharacterRequirement = require 'schemas.CharacterRequirement'
+local SpecialPower = require 'schemas.SpecialPower'
 
 -- 初期化
 function Schema:initialize(t)
@@ -42,9 +43,7 @@ function Schema:initialize(t)
     self.attackdice = Dice(t.attackdice)
 
     -- スペシャルパワー
-    self.specialpower = t.specialpower or {}
-    self.specialpower.power = self.specialpower.power or ''
-    self.specialpower.broke = self.specialpower.broke or 0
+    self.specialpower = SpecialPower(t.specialpower)
 
     -- 抵抗
     self.resists = t.resists or {}
