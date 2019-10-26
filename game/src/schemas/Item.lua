@@ -5,6 +5,7 @@ local class = require 'middleclass'
 local Schema = class 'Item'
 
 -- クラス
+local ArmorClass = require 'schemas.ArmorClass'
 local Dice = require 'schemas.Dice'
 local CharacterRequirement = require 'schemas.CharacterRequirement'
 local SpecialPower = require 'schemas.SpecialPower'
@@ -29,10 +30,10 @@ function Schema:initialize(t)
     self.cursable = CharacterRequirement(t.cursable)
 
     -- アーマークラス
-    self.ac = t.ac or 0
+    self.ac = ArmorClass(t.ac)
 
     -- 呪われたときのアーマークラス
-    self.curseac = t.curseac or 0
+    self.cursedac = ArmorClass(t.cursedac)
 
     -- 修正
     self.modifier = t.modifier or {}
