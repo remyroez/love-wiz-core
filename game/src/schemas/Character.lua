@@ -4,58 +4,66 @@ local class = require 'middleclass'
 -- スキーマ
 local Schema = class 'Character'
 
+-- クラス
+local ArmorClass = require 'schemas.ArmorClass'
+local HitPoint = require 'schemas.HitPoint'
+local Spellbook = require 'schemas.Spellbook'
+local Statistics = require 'schemas.Statistics'
+local Whereabouts = require 'schemas.Whereabouts'
+
 -- 初期化
 function Schema:initialize(t)
+    t = t or {}
+
+    -- 名前
     self.name = t.name or ''
 
+    -- パスワード
     self.password = t.password or ''
 
+    -- 種族
     self.race = t.race or ''
 
+    -- クラス
     self.class = t.class or ''
 
+    -- 年齢
     self.age = t.age or 0
 
+    -- 状態
     self.status = t.status or ''
 
+    -- アライメント
     self.alignment = t.alignment or ''
 
-    self.attribute = t.attribute or {}
-    self.attribute.strength = self.attribute.strength or 0
-    self.attribute.iq = self.attribute.iq or 0
-    self.attribute.piety = self.attribute.piety or 0
-    self.attribute.vitality = self.attribute.vitality or 0
-    self.attribute.agility = self.attribute.agility or 0
-    self.attribute.luck = self.attribute.luck or 0
+    -- 能力値
+    self.statistics = Statistics(t.statistics)
 
-    self.bonus = t.bonus or 0
-
+    -- ゴールド
     self.gold = t.gold or 0
 
+    -- アイテム
     self.items = t.items or {}
 
+    -- 経験値
     self.exp = t.exp or 0
+
+    -- レベル
     self.level = t.level or 0
 
-    self.hp = t.hp or 0
-    self.hpmax = t.hpmax or 0
+    -- 現在のＨＰ
+    self.hp = HitPoint(t.hp)
 
-    self.spells = t.spells or {}
-    self.spells.mage = self.spells.mage or {}
-    self.spells.priest = self.spells.priest or {}
+    -- スペル
+    self.spellbook = Spellbook(t.spellbook)
 
-    self.mp = t.mp or {}
-    self.mp.mage = self.mp.mage or {}
-    self.mp.priest = self.mp.priest or {}
+    -- アーマークラス
+    self.ac = ArmorClass(t.ac)
 
-    self.ac = t.ac or 0
+    -- 現在位置
+    self.whereabouts = Whereabouts(t.whereabouts)
 
-    self.whereabouts = t.whereabouts or {}
-    self.whereabouts.place = self.whereabouts.place or ''
-    self.whereabouts.x = self.whereabouts.x or 0
-    self.whereabouts.y = self.whereabouts.y or 0
-    self.whereabouts.level = self.whereabouts.level or ''
-
+    -- 称号
     self.titles = t.titles or {}
 end
 
