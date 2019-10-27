@@ -7,6 +7,7 @@ local Schema = class 'Character'
 -- クラス
 local ArmorClass = require 'schemas.ArmorClass'
 local HitPoint = require 'schemas.HitPoint'
+local Property = require 'schemas.Property'
 local Spellbook = require 'schemas.Spellbook'
 local Statistics = require 'schemas.Statistics'
 local Whereabouts = require 'schemas.Whereabouts'
@@ -42,8 +43,13 @@ function Schema:initialize(t)
     -- ゴールド
     self.gold = t.gold or 0
 
-    -- アイテム
-    self.items = t.items or {}
+    -- 所持品
+    self.properties = {}
+    if t.properties then
+        for _, property in ipairs(t.properties) do
+            table.insert(self.properties, Property(property))
+        end
+    end
 
     -- 経験値
     self.exp = t.exp or 0
