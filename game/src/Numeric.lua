@@ -7,12 +7,21 @@ function Numeric:initializeNumeric(v)
     self.value = v or 0
 end
 
+-- オーバーライド：文字列化
+function Numeric:__tostring()
+    return tostring(self.value)
+end
+
+-- オーバーライド：符号反転
+function Numeric:__unm()
+    return self.class(-self.value)
+end
+
 -- オーバーライド：加算
 function Numeric:__add(other)
     if type(other) == 'number' then
         return self.class(math.floor(self.value + other))
     elseif self.class:isInstance(other) then
-        print(self, other)
         return self.class(math.floor(self.value + other.value))
     else
         error('Not an operational value')
