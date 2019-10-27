@@ -10,6 +10,7 @@ local Dice = require 'schemas.Dice'
 local CharacterRequirement = require 'schemas.CharacterRequirement'
 local SpecialPower = require 'schemas.SpecialPower'
 local Price = require 'schemas.Price'
+local EquipmentModifier = require 'schemas.EquipmentModifier'
 
 -- 初期化
 function Schema:initialize(t)
@@ -37,9 +38,7 @@ function Schema:initialize(t)
     self.cursedac = ArmorClass(t.cursedac)
 
     -- 修正
-    self.modifier = t.modifier or {}
-    self.modifier.strength = self.modifier.strength or 0
-    self.modifier.attacktimes = self.modifier.attacktimes or 0
+    self.modifier = EquipmentModifier(t.modifier)
 
     -- 攻撃ダイス
     self.attackdice = Dice(t.attackdice)
