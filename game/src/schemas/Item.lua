@@ -9,6 +9,7 @@ local ArmorClass = require 'schemas.ArmorClass'
 local Dice = require 'schemas.Dice'
 local CharacterRequirement = require 'schemas.CharacterRequirement'
 local SpecialPower = require 'schemas.SpecialPower'
+local Price = require 'schemas.Price'
 
 -- 初期化
 function Schema:initialize(t)
@@ -53,11 +54,7 @@ function Schema:initialize(t)
     self.features = t.features or {}
 
     -- 値段
-    self.prices = t.prices or {}
-    self.prices.sell = self.prices.sell or 0
-    self.prices.buy = self.prices.buy or 0
-    self.prices.identify = self.prices.identify or 0
-    self.prices.uncurse = self.prices.uncurse or 0
+    self.prices = Price(t.prices)
 end
 
 return Schema
