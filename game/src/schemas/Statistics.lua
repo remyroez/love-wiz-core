@@ -17,8 +17,6 @@ function Schema:initialize(t)
     self.vitality = Attribute(t.vitality)
     self.agility  = Attribute(t.agility)
     self.luck     = Attribute(t.luck)
-
-    self.bonus = t.bonus or 0
 end
 
 return Schema

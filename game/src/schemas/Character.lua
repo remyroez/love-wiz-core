@@ -40,6 +40,9 @@ function Schema:initialize(t)
     -- 能力値
     self.statistics = Statistics(t.statistics)
 
+    -- ボーナス
+    self.bonus = t.bonus or 0
+
     -- ゴールド
     self.gold = t.gold or 0
 

@@ -4,18 +4,20 @@ local class = require 'middleclass'
 -- スキーマ
 local Schema = class 'Race'
 
+-- クラス
+local Statistics = require 'schemas.Statistics'
+
 -- 初期化
 function Schema:initialize(t)
+    t = t or {}
+
+    -- 名前
     self.name = t.name or ''
 
-    self.attribute = t.attribute or {}
-    self.attribute.strength = self.attribute.strength or 0
-    self.attribute.iq = self.attribute.iq or 0
-    self.attribute.piety = self.attribute.piety or 0
-    self.attribute.vitality = self.attribute.vitality or 0
-    self.attribute.agility = self.attribute.agility or 0
-    self.attribute.luck = self.attribute.luck or 0
+    -- 初期能力値
+    self.statistics = Statistics(t.statistics)
 
+    -- セービングスロー
     self.savingthrow = t.savingthrow or {}
     self.savingthrow[0] = self.savingthrow[0] or 0
     self.savingthrow[1] = self.savingthrow[1] or 0
