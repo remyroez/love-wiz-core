@@ -2,7 +2,7 @@
 local class = require 'middleclass'
 
 -- リードオンリー
-local Readonly = class 'Readonly'
+local Readonly = { static = {} }
 
 -- メタメソッド
 local metamethods = {
@@ -35,11 +35,11 @@ local metamethods = {
 
 -- 指定したテーブルをリードオンリーにする
 -- http://lua-users.org/wiki/ReadOnlyTables
-function Readonly.static.readonlytable(t)
+local function readonlytable(t)
     local mt = {
         __index = t,
         __newindex = function(...)
-            error("Attempt to modify read-only table")
+            error("attempt to modify read-only table")
         end,
         __metatable = false
     }
@@ -54,7 +54,7 @@ function Readonly.static:new(...)
     assert(type(self) == 'table', "Make sure that you are using 'Class:new' instead of 'Class.new'")
     local instance = self:allocate()
     instance:initialize(...)
-    return Readonly.readonlytable(instance)
+    return readonlytable(instance)
 end
 
 return Readonly
