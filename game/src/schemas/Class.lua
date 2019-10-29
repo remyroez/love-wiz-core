@@ -9,6 +9,7 @@ local SavingThrow = require 'schemas.SavingThrow'
 local Statistics = require 'schemas.Statistics'
 local Spellbook = require 'schemas.Spellbook'
 local SpellLearnLevel = require 'schemas.SpellLearnLevel'
+local AttackTimeLevel = require 'schemas.AttackTimeLevel'
 
 -- 初期化
 function Schema:initialize(t)
@@ -49,12 +50,7 @@ function Schema:initialize(t)
     self.hpdice = t.hpdice or 0
 
     -- 攻撃回数
-    self.attacktimes = t.attacktimes or {}
-    self.attacktimes.levelunit = self.attacktimes.levelunit or 0
-    self.attacktimes.modifier = self.attacktimes.modifier or 0
-
-    -- 攻撃速度
-    self.attackspeed = t.attackspeed or 0
+    self.attacktimelevel = AttackTimeLevel(t.attacktimelevel)
 
     -- 経験値チャート
     self.expchart = t.expchart or {}
