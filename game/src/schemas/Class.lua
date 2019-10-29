@@ -5,6 +5,7 @@ local class = require 'middleclass'
 local Schema = class 'Class'
 
 -- クラス
+local SavingThrow = require 'schemas.SavingThrow'
 local Statistics = require 'schemas.Statistics'
 
 -- 初期化
@@ -24,12 +25,7 @@ function Schema:initialize(t)
     self.statrequirement = Statistics(t.statrequirement)
 
     -- セービングスロー
-    self.savingthrow = t.savingthrow or {}
-    self.savingthrow[0] = self.savingthrow[0] or 0
-    self.savingthrow[1] = self.savingthrow[1] or 0
-    self.savingthrow[2] = self.savingthrow[2] or 0
-    self.savingthrow[3] = self.savingthrow[3] or 0
-    self.savingthrow[4] = self.savingthrow[4] or 0
+    self.savingthrow = SavingThrow(t.savingthrow)
 
     -- スペル回数
     self.mp = t.mp or {}
