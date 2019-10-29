@@ -8,6 +8,7 @@ local Schema = class 'Class'
 local SavingThrow = require 'schemas.SavingThrow'
 local Statistics = require 'schemas.Statistics'
 local Spellbook = require 'schemas.Spellbook'
+local SpellLearnLevel = require 'schemas.SpellLearnLevel'
 
 -- 初期化
 function Schema:initialize(t)
@@ -36,14 +37,13 @@ function Schema:initialize(t)
         end
     end
 
-    -- 習得スペル
-    self.learnspells = t.learnspells or {}
-    self.learnspells.mage = self.learnspells.mage or {}
-    self.learnspells.mage.level = self.learnspells.mage.level or 0
-    self.learnspells.mage.interval = self.learnspells.mage.interval or 0
-    self.learnspells.priest = self.learnspells.priest or {}
-    self.learnspells.priest.level = self.learnspells.priest.level or 0
-    self.learnspells.priest.interval = self.learnspells.priest.interval or 0
+    -- スペル習得レベル
+    self.spelllearnlevels = {}
+    if t.spelllearnlevels then
+        for k, t in pairs(t.spelllearnlevels) do
+            self.spelllearnlevels[k] = SpellLearnLevel(t)
+        end
+    end
 
     -- ＨＰダイス数
     self.hpdice = t.hpdice or 0
