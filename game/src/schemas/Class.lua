@@ -10,6 +10,7 @@ local Statistics = require 'schemas.Statistics'
 local Spellbook = require 'schemas.Spellbook'
 local SpellLearnLevel = require 'schemas.SpellLearnLevel'
 local AttackTimeLevel = require 'schemas.AttackTimeLevel'
+local NextLevel = require 'schemas.NextLevel'
 
 -- 初期化
 function Schema:initialize(t)
@@ -52,8 +53,8 @@ function Schema:initialize(t)
     -- 攻撃回数
     self.attacktimelevel = AttackTimeLevel(t.attacktimelevel)
 
-    -- 経験値チャート
-    self.expchart = t.expchart or {}
+    -- 次のレベル
+    self.nextlevel = NextLevel(t.nextlevel)
 end
 
 return Schema
