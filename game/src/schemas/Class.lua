@@ -7,6 +7,7 @@ local Schema = class 'Class'
 -- クラス
 local SavingThrow = require 'schemas.SavingThrow'
 local Statistics = require 'schemas.Statistics'
+local Spellbook = require 'schemas.Spellbook'
 
 -- 初期化
 function Schema:initialize(t)
@@ -27,15 +28,13 @@ function Schema:initialize(t)
     -- セービングスロー
     self.savingthrow = SavingThrow(t.savingthrow)
 
-    -- スペル回数
-    self.mp = t.mp or {}
-    self.mp.mage = self.mp.mage or {}
-    self.mp.priest = self.mp.priest or {}
-
-    -- 初期習得スペル
-    self.spells = t.spells or {}
-    self.spells.mage = self.spells.mage or {}
-    self.spells.priest = self.spells.priest or {}
+    -- 初期スペルブック
+    self.defaultspellbooks = {}
+    if t.defaultspellbooks then
+        for key, spellbook in pairs(t.defaultspellbooks) do
+            self.properties[key] = Spellbook(spellbook)
+        end
+    end
 
     -- 習得スペル
     self.learnspells = t.learnspells or {}

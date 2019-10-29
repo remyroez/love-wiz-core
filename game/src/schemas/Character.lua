@@ -63,8 +63,13 @@ function Schema:initialize(t)
     -- 現在のＨＰ
     self.hp = HitPoint(t.hp)
 
-    -- スペル
-    self.spellbook = Spellbook(t.spellbook)
+    -- スペルブック
+    self.spellbooks = {}
+    if t.spellbooks then
+        for key, spellbook in pairs(t.spellbooks) do
+            self.spellbooks[key] = Spellbook(spellbook)
+        end
+    end
 
     -- アーマークラス
     self.ac = ArmorClass(t.ac)
