@@ -80,18 +80,22 @@ function Enum:initialize(t)
         if v == 'class' then
             error("can't use 'class' key")
         elseif type(v) == 'string' then
-            self[v] = value
             self._table[v] = value
             value = value + 1
         else
             error('invalid value')
         end
     end
+
+    for k, v in pairs(self._table) do
+        self[k] = self(v)
+        self[v] = self(v)
+    end
 end
 
 -- オーバーライド：呼び出し
 function Enum:__call(...)
-    return self:value(...)
+    return Enum:EnumValue(self)(...)
 end
 
 -- 取得
@@ -99,7 +103,7 @@ function Enum:get(v)
     if type(v) == 'number' then
         return lume.find(self._table, v)
     elseif type(v) == 'string' then
-        return self[v]
+        return self._table[v]
     end
     return nil
 end
@@ -107,11 +111,6 @@ end
 -- 検索
 function Enum:has(v)
     return not not self:get(v)
-end
-
--- 値化
-function Enum:value(key)
-    return Enum:EnumValue(self)(key)
 end
 
 return Enum
