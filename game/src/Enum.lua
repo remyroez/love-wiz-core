@@ -11,6 +11,9 @@ Enum:include(require 'Readonly')
 -- 定義済み EnumValue クラス
 local enumValues = {}
 
+-- 定義済み EnumSet クラス
+local enumSets = {}
+
 -- EnumValue クラスの定義
 function Enum.static.EnumValue(_, enum)
     if enumValues[enum] == nil then
@@ -21,6 +24,7 @@ function Enum.static.EnumValue(_, enum)
         EnumValue.static.enum = enum
 
         -- 組み込み
+        EnumValue:include(require 'Class')
         EnumValue:include(require 'Readonly')
 
         -- 初期化
@@ -29,6 +33,8 @@ function Enum.static.EnumValue(_, enum)
                 self.key = EnumValue.enum:get(v)
             elseif type(v) == 'string' then
                 self.key = v
+            elseif EnumValue:isInstance(v) then
+                self.key = v.key
             else
                 error('invalid value')
             end
@@ -70,6 +76,76 @@ function Enum.static.EnumValue(_, enum)
     return enumValues[enum]
 end
 
+-- EnumSet クラスの定義
+function Enum.static.EnumSet(_, enum)
+    enum = enum or _
+    if enumSets[enum] == nil then
+        -- EnumSet
+        local EnumSet = class (enum.name and 'EnumSet(' .. enum.name .. ')' or 'EnumSet')
+
+        -- 元の Enum クラス
+        EnumSet.static.enum = enum
+
+        EnumSet.static.enumValue = Enum:EnumValue(enum)
+
+        -- 組み込み
+        EnumSet:include(require 'Class')
+
+        -- 初期化
+        function EnumSet:initialize(t)
+            t = t or {}
+            self._set = {}
+            for _, v in ipairs(t) do
+                self:add(v)
+            end
+        end
+
+        -- オーバーライド：文字列化
+        function EnumSet:__tostring()
+            return table.concat(lume.map(self._set, tostring), ', ')
+        end
+
+        -- オーバーライド：比較
+        function EnumSet:__eq(other)
+            local eq = true
+            for k, v in pairs(self.set) do
+                if self._set[k] ~= other._set[k] then
+                    eq = false
+                    break
+                end
+            end
+            return eq
+        end
+
+        -- 追加
+        function EnumSet:add(v)
+            if EnumSet.enum:has(v) then
+                table.insert(self._set, EnumSet.enum(v))
+            else
+                error('not same enum value')
+            end
+        end
+
+        -- 削除
+        function EnumSet:remove(v)
+            if EnumSet.enum:has(v) then
+                lume.remove(self._set, EnumSet.enum(v))
+            else
+                error('not same enum value')
+            end
+        end
+
+        -- クリア
+        function EnumSet:clear()
+            lume.clear(self._set)
+        end
+
+        -- 保持
+        enumSets[enum] = EnumSet
+    end
+    return enumSets[enum]
+end
+
 -- 初期化
 function Enum:initialize(t)
     t = t or {}
@@ -87,15 +163,22 @@ function Enum:initialize(t)
         end
     end
 
+    self.name = t.name or nil
+
     for k, v in pairs(self._table) do
         self[k] = self(v)
         self[v] = self(v)
     end
 end
 
+-- オーバーライド：文字列化
+function Enum:__tostring()
+    return 'enum' .. (self.name and (' ' .. self.name) or '')
+end
+
 -- オーバーライド：呼び出し
 function Enum:__call(...)
-    return Enum:EnumValue(self)(...)
+    return self:EnumValue()(...)
 end
 
 -- 取得
@@ -104,6 +187,8 @@ function Enum:get(v)
         return lume.find(self._table, v)
     elseif type(v) == 'string' then
         return self._table[v]
+    elseif Enum:EnumValue(self):isInstance(v) then
+        return v
     end
     return nil
 end
@@ -111,6 +196,16 @@ end
 -- 検索
 function Enum:has(v)
     return not not self:get(v)
+end
+
+-- EnumValue クラスの定義
+function Enum:EnumValue()
+    return Enum:EnumValue(self)
+end
+
+-- EnumSet クラスの定義
+function Enum:EnumSet()
+    return Enum:EnumSet(self)
 end
 
 return Enum
