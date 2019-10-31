@@ -16,6 +16,7 @@ local enumSets = {}
 
 -- EnumValue クラスの定義
 function Enum.static.EnumValue(_, enum)
+    enum = enum or _
     if enumValues[enum] == nil then
         -- EnumValue
         local EnumValue = class (enum.name and 'EnumValue(' .. enum.name .. ')' or 'EnumValue')
@@ -121,6 +122,7 @@ function Enum.static.EnumSet(_, enum)
         function EnumSet:add(v)
             if EnumSet.enum:has(v) then
                 table.insert(self._set, EnumSet.enum(v))
+                self:sort()
             else
                 error('not same enum value')
             end
@@ -140,6 +142,11 @@ function Enum.static.EnumSet(_, enum)
             lume.clear(self._set)
         end
 
+        -- ソート
+        function EnumSet:sort()
+            table.sort(self._set)
+        end
+
         -- 保持
         enumSets[enum] = EnumSet
     end
@@ -150,22 +157,31 @@ end
 function Enum:initialize(t)
     t = t or {}
 
-    self._table = {}
+    -- 要素を保持
+    self._values = {}
+    self._keys = {}
     local value = 1
     for i, v in ipairs(t) do
         if v == 'class' then
             error("can't use 'class' key")
         elseif type(v) == 'string' then
-            self._table[v] = value
+            self._values[v] = value
             value = value + 1
+            table.insert(self._keys, v)
         else
             error('invalid value')
         end
     end
 
+    -- 名前
     self.name = t.name or nil
 
-    for k, v in pairs(self._table) do
+    -- 各型を保持
+    self.EnumValue = Enum:EnumValue(self)
+    self.EnumSet = Enum:EnumSet(self)
+
+    -- 各キーとインデックスに値をコピー
+    for k, v in pairs(self._values) do
         self[k] = self(v)
         self[v] = self(v)
     end
@@ -173,20 +189,20 @@ end
 
 -- オーバーライド：文字列化
 function Enum:__tostring()
-    return 'enum' .. (self.name and (' ' .. self.name) or '')
+    return 'enum' .. (self.name and (' ' .. self.name) or '') .. ' [' .. table.concat(self._keys, ', ') .. ']'
 end
 
 -- オーバーライド：呼び出し
 function Enum:__call(...)
-    return self:EnumValue()(...)
+    return self.EnumValue(...)
 end
 
 -- 取得
 function Enum:get(v)
     if type(v) == 'number' then
-        return lume.find(self._table, v)
+        return lume.find(self._values, v)
     elseif type(v) == 'string' then
-        return self._table[v]
+        return self._values[v]
     elseif Enum:EnumValue(self):isInstance(v) then
         return v
     end
@@ -196,16 +212,6 @@ end
 -- 検索
 function Enum:has(v)
     return not not self:get(v)
-end
-
--- EnumValue クラスの定義
-function Enum:EnumValue()
-    return Enum:EnumValue(self)
-end
-
--- EnumSet クラスの定義
-function Enum:EnumSet()
-    return Enum:EnumSet(self)
 end
 
 return Enum
