@@ -5,6 +5,7 @@ local class = require 'middleclass'
 local Schema = class 'Class'
 
 -- クラス
+local Alignment = require 'enums.Alignment'
 local SavingThrow = require 'schemas.SavingThrow'
 local Statistics = require 'schemas.Statistics'
 local Spellbook = require 'schemas.Spellbook'
@@ -23,7 +24,7 @@ function Schema:initialize(t)
     self.shortname = t.shortname or ''
 
     -- アライメント
-    self.alignments = t.alignments or {}
+    self.alignments = Alignment.EnumSet(t.alignments)
 
     -- 必要能力値
     self.statrequirement = Statistics(t.statrequirement)
