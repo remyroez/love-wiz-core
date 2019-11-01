@@ -95,7 +95,7 @@ function Enum.static.EnumSet(_, enum)
         -- 初期化
         function EnumSet:initialize(t)
             t = t or {}
-            self._set = {}
+            self._values = {}
             for _, v in ipairs(t) do
                 self:add(v)
             end
@@ -103,14 +103,14 @@ function Enum.static.EnumSet(_, enum)
 
         -- オーバーライド：文字列化
         function EnumSet:__tostring()
-            return table.concat(lume.map(self._set, tostring), ', ')
+            return table.concat(lume.map(self._values, tostring), ', ')
         end
 
         -- オーバーライド：比較
         function EnumSet:__eq(other)
             local eq = true
             for k, v in pairs(self.set) do
-                if self._set[k] ~= other._set[k] then
+                if self._values[k] ~= other._values[k] then
                     eq = false
                     break
                 end
@@ -118,10 +118,19 @@ function Enum.static.EnumSet(_, enum)
             return eq
         end
 
+        -- 持っているかどうか
+        function EnumSet:has(v)
+            if EnumSet.enum:has(v) then
+                return not not lume.find(self._values, EnumSet.enumValue(v))
+            else
+                error('not same enum value')
+            end
+        end
+
         -- 追加
         function EnumSet:add(v)
             if EnumSet.enum:has(v) then
-                table.insert(self._set, EnumSet.enum(v))
+                table.insert(self._values, EnumSet.enumValue(v))
                 self:sort()
             else
                 error('not same enum value')
@@ -131,7 +140,7 @@ function Enum.static.EnumSet(_, enum)
         -- 削除
         function EnumSet:remove(v)
             if EnumSet.enum:has(v) then
-                lume.remove(self._set, EnumSet.enum(v))
+                lume.remove(self._values, EnumSet.enumValue(v))
             else
                 error('not same enum value')
             end
@@ -139,12 +148,12 @@ function Enum.static.EnumSet(_, enum)
 
         -- クリア
         function EnumSet:clear()
-            lume.clear(self._set)
+            lume.clear(self._values)
         end
 
         -- ソート
         function EnumSet:sort()
-            table.sort(self._set)
+            table.sort(self._values)
         end
 
         -- 保持
