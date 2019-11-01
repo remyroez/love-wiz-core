@@ -11,6 +11,10 @@ local Property = require 'schemas.Property'
 local Spellbook = require 'schemas.Spellbook'
 local Statistics = require 'schemas.Statistics'
 local Whereabouts = require 'schemas.Whereabouts'
+local Race = require 'enums.Race'
+local CharacterClass = require 'enums.CharacterClass'
+local Alignment = require 'enums.Alignment'
+local Status = require 'enums.Status'
 
 -- 初期化
 function Schema:initialize(t)
@@ -23,19 +27,19 @@ function Schema:initialize(t)
     self.password = t.password or ''
 
     -- 種族
-    self.race = t.race or ''
+    self.race = Race(t.race)
 
     -- クラス
-    self.class = t.class or ''
+    self.klass = CharacterClass(t.class)
 
     -- 年齢
     self.age = t.age or 0
 
     -- 状態
-    self.status = t.status or ''
+    self.status = Status(t.status)
 
     -- アライメント
-    self.alignment = t.alignment or ''
+    self.alignment = Alignment(t.alignment)
 
     -- 能力値
     self.statistics = Statistics(t.statistics)

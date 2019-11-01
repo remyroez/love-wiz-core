@@ -6,14 +6,17 @@ local Schema = class 'CharacterRequirement'
 
 -- クラス
 local Whitelist = require 'Whitelist'
+local Alignment = require 'enums.Alignment'
+local CharacterClass = require 'enums.CharacterClass'
+local Race = require 'enums.Race'
 
 -- 初期化
 function Schema:initialize(t)
     t = t or {}
 
-    self.classes = Whitelist(t.classes)
-    self.races = Whitelist(t.races)
-    self.alignments = Whitelist(t.alignments)
+    self.alignments = Whitelist(Alignment.EnumSet(t.alignments)._values)
+    self.classes = Whitelist(CharacterClass.EnumSet(t.classes)._values)
+    self.races = Whitelist(Race.EnumSet(t.races)._values)
 end
 
 -- オーバーライド：呼び出し

@@ -12,6 +12,7 @@ local Spellbook = require 'schemas.Spellbook'
 local SpellLearnLevel = require 'schemas.SpellLearnLevel'
 local AttackTimeLevel = require 'schemas.AttackTimeLevel'
 local NextLevel = require 'schemas.NextLevel'
+local Realm = require 'enums.Realm'
 
 -- 初期化
 function Schema:initialize(t)
@@ -35,16 +36,16 @@ function Schema:initialize(t)
     -- 初期スペルブック
     self.defaultspellbooks = {}
     if t.defaultspellbooks then
-        for key, spellbook in pairs(t.defaultspellbooks) do
-            self.properties[key] = Spellbook(spellbook)
+        for realm, spellbook in pairs(t.defaultspellbooks) do
+            self.properties[Realm(realm)] = Spellbook(spellbook)
         end
     end
 
     -- スペル習得レベル
     self.spelllearnlevels = {}
     if t.spelllearnlevels then
-        for k, t in pairs(t.spelllearnlevels) do
-            self.spelllearnlevels[k] = SpellLearnLevel(t)
+        for realm, spelllearnlevel in pairs(t.spelllearnlevels) do
+            self.spelllearnlevels[Realm(realm)] = SpellLearnLevel(spelllearnlevel)
         end
     end
 

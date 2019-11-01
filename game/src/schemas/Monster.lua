@@ -7,6 +7,10 @@ local Schema = class 'Monster'
 -- クラス
 local Dice = require 'schemas.Dice'
 local Following = require 'schemas.Following'
+local Realm = require 'enums.Realm'
+local Element = require 'enums.Element'
+local MonsterClass = require 'enums.MonsterClass'
+local MonsterFeature = require 'enums.MonsterFeature'
 
 -- 初期化
 function Schema:initialize(t)
@@ -20,8 +24,9 @@ function Schema:initialize(t)
     self.realname = t.realname or ''
     self.prealname = t.prealname or ''
 
-    -- 画像
+    -- 姿／真の姿
     self.picture = t.picture or ''
+    self.realpicture = t.picture or ''
 
     -- 頭数ダイス
     self.numdice = Dice(t.numdice)
@@ -30,7 +35,7 @@ function Schema:initialize(t)
     self.hpdice = Dice(t.hpdice)
 
     -- クラス
-    self.class = t.class or ''
+    self.class = MonsterClass(t.class)
 
     -- アーマークラス
     self.ac = t.ac or 0
@@ -64,24 +69,27 @@ function Schema:initialize(t)
     self.following = Following(t.following)
 
     -- スペルレベル
-    self.spelllevels = t.spelllevels or {}
-    self.spelllevels.mage = self.spelllevels.mage or 0
-    self.spelllevels.priest = self.spelllevels.priest or 0
+    self.spelllevels = {}
+    if t.spelllevels then
+        for realm, spelllevel in pairs(t.spelllevels) do
+            self.spelllevels[Realm(realm)] = spelllevel
+        end
+    end
 
     -- 出現回数
     self.unique = t.unique or 0
 
     -- ブレス
-    self.breath = t.breath or ''
+    self.breath = Element(t.breath)
 
     -- 呪文抵抗
     self.resistspell = t.resistspell or 0
 
     -- 抵抗
-    self.resists = t.resists or {}
+    self.resists = Element.EnumSet(t.resists)
 
     -- 特徴
-    self.features = t.features or {}
+    self.features = MonsterFeature.EnumSet(t.features)
 end
 
 return Schema

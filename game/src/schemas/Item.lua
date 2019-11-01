@@ -11,6 +11,10 @@ local CharacterRequirement = require 'schemas.CharacterRequirement'
 local SpecialPower = require 'schemas.SpecialPower'
 local Price = require 'schemas.Price'
 local EquipmentModifier = require 'schemas.EquipmentModifier'
+local Element = require 'enums.Element'
+local MonsterClass = require 'enums.MonsterClass'
+local ItemFeature = require 'enums.ItemFeature'
+local ItemClass = require 'enums.ItemClass'
 
 -- 初期化
 function Schema:initialize(t)
@@ -23,7 +27,7 @@ function Schema:initialize(t)
     self.realname = t.realname or ''
 
     -- 種類
-    self.category = t.category or ''
+    self.klass = ItemClass(t.class)
 
     -- 装備可能
     self.equipable = CharacterRequirement(t.equipable)
@@ -31,29 +35,41 @@ function Schema:initialize(t)
     -- 呪いの対象
     self.cursable = CharacterRequirement(t.cursable)
 
+    -- スペシャルパワー
+    self.specialpower = SpecialPower(t.specialpower)
+
+    -- 値段
+    self.prices = Price(t.prices)
+
+    -- スペル
+    self.spell = t.spell or ''
+
+    -- ヒーリング
+    self.heal = t.heal or 0
+
+    -- 倍打
+    self.slay = MonsterClass(t.slay)
+
+    -- 防御
+    self.protection = MonsterClass(t.protection)
+
     -- アーマークラス
     self.ac = ArmorClass(t.ac)
 
     -- 呪われたときのアーマークラス
     self.cursedac = ArmorClass(t.cursedac)
 
-    -- 修正
-    self.modifier = EquipmentModifier(t.modifier)
-
     -- 攻撃ダイス
     self.attackdice = Dice(t.attackdice)
 
-    -- スペシャルパワー
-    self.specialpower = SpecialPower(t.specialpower)
-
-    -- 抵抗
-    self.resists = t.resists or {}
+    -- 修正
+    self.modifier = EquipmentModifier(t.modifier)
 
     -- 特徴
-    self.features = t.features or {}
+    self.features = ItemFeature.EnumSet(t.features)
 
-    -- 値段
-    self.prices = Price(t.prices)
+    -- 抵抗
+    self.resists = Element.EnumSet(t.resists)
 end
 
 return Schema
