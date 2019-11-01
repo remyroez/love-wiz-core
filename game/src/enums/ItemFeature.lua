@@ -1,0 +1,4 @@
+
+return (require 'Enum') {
+    'criticallyhit',
+}
