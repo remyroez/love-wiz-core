@@ -1,0 +1,48 @@
+
+local class = require 'middleclass'
+
+-- スキーマ
+local Schema = class 'Dice'
+
+-- 初期化
+function Schema:initialize(t)
+    t = t or {}
+
+    self.roll = t.roll or 0
+    self.side = t.side or 0
+    self.modifier = t.modifier or 0
+end
+
+-- オーバーライド：呼び出し
+function Schema:__call(...)
+    return self:throw(...)
+end
+
+-- オーバーライド：文字列化
+function Schema:__tostring()
+    return '' .. self.roll .. 'd' .. self.side .. (self.modifier == 0 and '' or (self.modifier < 0 and self.modifier or ('+' .. self.modifier)))
+end
+
+-- ダイスロール
+function Schema:throw(randomizer)
+    randomizer = randomizer or math.random
+
+    local value = self.modifier
+    for i = 1, self.roll do
+        value = value + randomizer(self.side)
+    end
+
+    return value
+end
+
+-- 最大値
+function Schema:max()
+    return self.side * self.roll + self.modifier
+end
+
+-- 最低値
+function Schema:min()
+    return 1 * self.roll + self.modifier
+end
+
+return Schema
