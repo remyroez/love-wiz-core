@@ -2,7 +2,7 @@
 local class = require 'middleclass'
 
 -- スキーマ
-local Schema = class 'Class'
+local Schema = class 'CharacterClass'
 
 -- クラス
 local Alignment = require 'enums.Alignment'
