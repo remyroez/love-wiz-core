@@ -27,7 +27,7 @@ end
 -- チェック
 function Schema:allow(t)
     t = t or {}
-    return self.classes(t.class) and self.races(t.race) and self.alignments(t.alignment)
+    return self.classes(t.class or t.klass) and self.races(t.race) and self.alignments(t.alignment)
 end
 
 return Schema

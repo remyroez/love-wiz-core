@@ -35,7 +35,7 @@ function Schema:initialize(t)
     self.hpdice = Dice(t.hpdice)
 
     -- クラス
-    self.class = MonsterClass(t.class)
+    self.klass = MonsterClass(t.class)
 
     -- アーマークラス
     self.ac = t.ac or 0
