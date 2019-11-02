@@ -5,6 +5,7 @@ local class = require 'middleclass'
 local Schema = class 'Character'
 
 -- クラス
+local Age = require 'schemas.Age'
 local ArmorClass = require 'schemas.ArmorClass'
 local HitPoint = require 'schemas.HitPoint'
 local Property = require 'schemas.Property'
@@ -33,7 +34,7 @@ function Schema:initialize(t)
     self.klass = CharacterClass(t.class)
 
     -- 年齢
-    self.age = t.age or 0
+    self.age = Age(t.age)
 
     -- 状態
     self.status = Status(t.status)

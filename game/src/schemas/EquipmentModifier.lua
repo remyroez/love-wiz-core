@@ -8,7 +8,7 @@ local Schema = class 'EquipmentModifier'
 function Schema:initialize(t)
     t = t or {}
 
-    self.strength = t.strength or 0
+    self.tohit = t.tohit or 0
     self.attacktimes = t.attacktimes or 0
 end
 
@@ -28,7 +28,7 @@ end
 
 -- オーバーライド：比較
 function Schema:__eq(other)
-    return self.strength == other.strength and self.attacktimes == other.attacktimes
+    return self.tohit == other.tohit and self.attacktimes == other.attacktimes
 end
 
 -- 修正
@@ -37,7 +37,7 @@ function Schema:modify(t)
 
     local mod = {}
 
-    mod.strength = self.strength + (t.strength or 0)
+    mod.tohit = self.tohit + (t.tohit or 0)
     mod.attacktimes = self.attacktimes + (t.attacktimes or 0)
 
     return Schema(mod)

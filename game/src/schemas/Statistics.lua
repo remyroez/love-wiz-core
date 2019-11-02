@@ -6,17 +6,15 @@ local Schema = class 'Statistics'
 
 -- クラス
 local Attribute = require 'schemas.Attribute'
+local AttributeEnum = require 'enums.Attribute'
 
 -- 初期化
 function Schema:initialize(t)
     t = t or {}
 
-    self.strength = Attribute(t.strength)
-    self.iq       = Attribute(t.iq)
-    self.piety    = Attribute(t.piety)
-    self.vitality = Attribute(t.vitality)
-    self.agility  = Attribute(t.agility)
-    self.luck     = Attribute(t.luck)
+    for attribute, value in pairs(t) do
+        self[AttributeEnum(attribute)] = Attribute(value)
+    end
 end
 
 return Schema
