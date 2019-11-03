@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- スキーマ
 local Schema = class 'Treasure'
@@ -24,7 +25,7 @@ function Schema:__call(...)
 end
 
 function Schema:get(randomizer)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
 
     local value = nil
     if randomizer(100) <= self.probability then

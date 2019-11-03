@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- スキーマ
 local Schema = class 'SavingThrow'
@@ -9,49 +10,49 @@ Schema:include(require 'Class')
 
 -- 毒セーブ
 function Schema.static.savePoison(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- 麻痺セーブ
 function Schema.static.saveParalyze(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- クリティカルヒットセーブ
 function Schema.static.saveCriticalHit(randomizer, save, save2)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save or randomizer(0, 100) > save2
 end
 
 -- 石化セーブ
 function Schema.static.saveStone(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- ブレスセーブ
 function Schema.static.saveBreath(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- ガス爆弾セーブ
 function Schema.static.saveGasBomb(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) < save
 end
 
 -- 沈黙セーブ
 function Schema.static.saveSilence(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 99) > save
 end
 
 -- メイジ／プリーストブラスターセーブ
 function Schema.static.saveBlaster(randomizer, save)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) < save
 end
 
