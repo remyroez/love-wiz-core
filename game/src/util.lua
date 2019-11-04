@@ -4,6 +4,13 @@ local lume = require 'lume'
 -- ユーティリティ
 local util = {}
 
+-- クラス (middleclass) かどうか調べる
+function util.isClass(class)
+    return type(class) == 'table'
+        and type(class.name) == 'string'
+        and type(class.static) == 'table'
+end
+
 -- クラスのインスタンスかどうか調べる
 function util.isInstance(class, instance)
     return lume.call(instance.isInstanceOf, instance, class)
