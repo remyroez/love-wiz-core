@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- スキーマ
 local Schema = class 'SpecialPower'
@@ -17,7 +18,7 @@ function Schema:initialize(t)
 end
 
 function Schema:change(randomizer)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return randomizer(100) <= self.changingprobability
 end
 

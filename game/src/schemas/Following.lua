@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- スキーマ
 local Schema = class 'Following'
@@ -17,7 +18,7 @@ end
 
 -- 取得
 function Schema:get(randomizer)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
     return (randomizer(100) <= self.probability) and self.id or nil
 end
 

@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- スキーマ
 local Schema = class 'Dice'
@@ -25,7 +26,7 @@ end
 
 -- ダイスロール
 function Schema:throw(randomizer)
-    randomizer = randomizer or math.random
+    randomizer = util.randomizer(randomizer)
 
     local value = self.modifier
     for i = 1, self.roll do
