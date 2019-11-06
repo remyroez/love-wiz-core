@@ -2,14 +2,14 @@
 local class = require 'middleclass'
 local lume = require 'lume'
 
--- スキーマ
-local Schema = class 'Spellbook'
+-- クラス：スペルブック
+local Spellbook = class 'Spellbook'
 
--- クラス
-local SpellLevel = require 'schemas.SpellLevel'
+-- モジュール
+local SpellLevel = require 'models.SpellLevel'
 
 -- 初期化
-function Schema:initialize(t)
+function Spellbook:initialize(t)
     t = t or {}
 
     self.levels = {}
@@ -21,7 +21,7 @@ function Schema:initialize(t)
 end
 
 -- スペルがあるかどうか
-function Schema:hasSpell(spell)
+function Spellbook:hasSpell(spell)
     for i, level in ipairs(self.levels) do
         local has = level:hasSpell(spell)
         if has then
@@ -32,7 +32,7 @@ function Schema:hasSpell(spell)
 end
 
 -- スペルを唱えられるかどうか
-function Schema:canCast(spell)
+function Spellbook:canCast(spell)
     for i, level in ipairs(self.levels) do
         local has = level:hasSpell(spell)
         if level:hasSpell(spell) then
@@ -42,4 +42,4 @@ function Schema:canCast(spell)
     return nil
 end
 
-return Schema
+return Spellbook

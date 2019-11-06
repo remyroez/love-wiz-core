@@ -2,14 +2,14 @@
 local class = require 'middleclass'
 local lume = require 'lume'
 
--- スキーマ
-local Schema = class 'SpellLevel'
+-- クラス：スキルレベル
+local SpellLevel = class 'SpellLevel'
 
--- クラス
-local SpellPoint = require 'schemas.SpellPoint'
+-- モジュール
+local SpellPoint = require 'valueobjects.SpellPoint'
 
 -- 初期化
-function Schema:initialize(t)
+function SpellLevel:initialize(t)
     t = t or {}
 
     self.spells   = t.spells or {}
@@ -17,13 +17,13 @@ function Schema:initialize(t)
 end
 
 -- スペルがあるかどうか
-function Schema:hasSpell(spell)
+function SpellLevel:hasSpell(spell)
     return not not lume.find(self.spells, spell)
 end
 
 -- スペルを唱えられるかどうか
-function Schema:canCast(spell)
+function SpellLevel:canCast(spell)
     return self.point.value > 0 and self:hasSpell(spell)
 end
 
-return Schema
+return SpellLevel

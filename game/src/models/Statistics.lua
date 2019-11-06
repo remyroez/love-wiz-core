@@ -1,15 +1,15 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Statistics'
+-- クラス：能力値
+local Statistics = class 'Statistics'
 
--- クラス
-local Attribute = require 'schemas.Attribute'
+-- モジュール
+local Attribute = require 'valueobjects.Attribute'
 local AttributeEnum = require 'enums.Attribute'
 
 -- 初期化
-function Schema:initialize(t)
+function Statistics:initialize(t)
     t = t or {}
 
     for attribute, value in pairs(t) do
@@ -17,4 +17,4 @@ function Schema:initialize(t)
     end
 end
 
-return Schema
+return Statistics
