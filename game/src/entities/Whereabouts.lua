@@ -1,11 +1,11 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Whereabouts'
+-- クラス：現在位置
+local Whereabouts = class 'Whereabouts'
 
 -- 初期化
-function Schema:initialize(t)
+function Whereabouts:initialize(t)
     t = t or {}
 
     self.place = t.place or ''
@@ -14,4 +14,4 @@ function Schema:initialize(t)
     self.level = t.level or ''
 end
 
-return Schema
+return Whereabouts

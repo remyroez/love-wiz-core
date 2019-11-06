@@ -1,11 +1,11 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Property'
+-- クラス：所持品
+local Property = class 'Property'
 
 -- 初期化
-function Schema:initialize(t)
+function Property:initialize(t)
     t = t or {}
 
     self.item = t.item or ''
@@ -14,4 +14,4 @@ function Schema:initialize(t)
     self.cursed = t.cursed or false
 end
 
-return Schema
+return Property

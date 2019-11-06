@@ -1,24 +1,27 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Character'
+-- クラス：キャラクター
+local Character = class 'Character'
 
--- クラス
-local Age = require 'schemas.Age'
-local ArmorClass = require 'schemas.ArmorClass'
-local HitPoint = require 'schemas.HitPoint'
-local Property = require 'schemas.Property'
-local Spellbook = require 'schemas.Spellbook'
-local Statistics = require 'schemas.Statistics'
-local Whereabouts = require 'schemas.Whereabouts'
-local Race = require 'enums.Race'
-local CharacterClass = require 'enums.CharacterClass'
+-- モジュール
+local Property = require 'entities.Property'
+local Whereabouts = require 'entities.Whereabouts'
+
+local Spellbook = require 'models.Spellbook'
+local Statistics = require 'models.Statistics'
+
+local Age = require 'valueobjects.Age'
+local ArmorClass = require 'valueobjects.ArmorClass'
+local HitPoint = require 'valueobjects.HitPoint'
+
 local Alignment = require 'enums.Alignment'
+local CharacterClass = require 'enums.CharacterClass'
+local Race = require 'enums.Race'
 local Status = require 'enums.Status'
 
 -- 初期化
-function Schema:initialize(t)
+function Character:initialize(t)
     t = t or {}
 
     -- 名前
@@ -86,4 +89,4 @@ function Schema:initialize(t)
     self.titles = t.titles or {}
 end
 
-return Schema
+return Character
