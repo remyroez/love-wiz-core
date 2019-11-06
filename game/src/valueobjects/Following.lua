@@ -2,11 +2,11 @@
 local class = require 'middleclass'
 local util = require 'util'
 
--- スキーマ
-local Schema = class 'Following'
+-- クラス：後続
+local Following = class 'Following'
 
 -- 初期化
-function Schema:initialize(t)
+function Following:initialize(t)
     t = t or {}
 
     -- 確率
@@ -17,9 +17,9 @@ function Schema:initialize(t)
 end
 
 -- 取得
-function Schema:get(randomizer)
+function Following:get(randomizer)
     randomizer = util.randomizer(randomizer)
     return (randomizer(100) <= self.probability) and self.id or nil
 end
 
-return Schema
+return Following

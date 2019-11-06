@@ -6,10 +6,9 @@ local Character = class 'Character'
 
 -- モジュール
 local Property = require 'entities.Property'
+local Spellbook = require 'entities.Spellbook'
+local Statistics = require 'entities.Statistics'
 local Whereabouts = require 'entities.Whereabouts'
-
-local Spellbook = require 'models.Spellbook'
-local Statistics = require 'models.Statistics'
 
 local Age = require 'valueobjects.Age'
 local ArmorClass = require 'valueobjects.ArmorClass'

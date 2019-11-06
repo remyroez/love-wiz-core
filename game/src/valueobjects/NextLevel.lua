@@ -1,18 +1,18 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'NextLevel'
+-- クラス：次のレベルまでの経験値
+local NextLevel = class 'NextLevel'
 
 -- 初期化
-function Schema:initialize(t)
+function NextLevel:initialize(t)
     t = t or {}
 
     self.exps = t or {}
 end
 
 -- 累積経験値からレベルを算出する
-function Schema:getLevel(exp)
+function NextLevel:getLevel(exp)
     local level = 1
     for i, value in ipairs(self.exps) do
         if exp >= value then
@@ -25,7 +25,7 @@ function Schema:getLevel(exp)
 end
 
 -- レベルから累積経験値を返す
-function Schema:getTotalExperience(level)
+function NextLevel:getTotalExperience(level)
     local exp = 0
     if level <= 1 then
         exp = 0
@@ -38,7 +38,7 @@ function Schema:getTotalExperience(level)
 end
 
 -- レベルから必要経験値を返す
-function Schema:getRequireExperience(level)
+function NextLevel:getRequireExperience(level)
     local exp = 0
     if level <= #self.exps then
         exp = self:getTotalExperience(level + 1) - self:getTotalExperience(level)
@@ -48,4 +48,4 @@ function Schema:getRequireExperience(level)
     return exp
 end
 
-return Schema
+return NextLevel

@@ -2,14 +2,14 @@
 local class = require 'middleclass'
 local util = require 'util'
 
--- スキーマ
-local Schema = class 'SpecialPower'
+-- クラス：スペシャルパワー
+local SpecialPower = class 'SpecialPower'
 
--- クラス
+-- モジュール
 local SpecialPowerEnum = require 'enums.SpecialPower'
 
 -- 初期化
-function Schema:initialize(t)
+function SpecialPower:initialize(t)
     t = t or {}
 
     self.power = SpecialPowerEnum(self.power)
@@ -17,9 +17,9 @@ function Schema:initialize(t)
     self.changeditem = self.changeditem or 0
 end
 
-function Schema:change(randomizer)
+function SpecialPower:change(randomizer)
     randomizer = util.randomizer(randomizer)
     return randomizer(100) <= self.changingprobability
 end
 
-return Schema
+return SpecialPower

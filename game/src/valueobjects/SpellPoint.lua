@@ -1,16 +1,16 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'SpellPoint'
+-- クラス：呪文ポイント
+local SpellPoint = class 'SpellPoint'
 
 -- 組み込み
-Schema:include(require 'Class')
-Schema:include(require 'Clamp')
+SpellPoint:include(require 'Class')
+SpellPoint:include(require 'Clamp')
 
 -- 初期化
-function Schema:initialize(t)
+function SpellPoint:initialize(t)
     self:initializeClamp(t)
 end
 
-return Schema
+return SpellPoint

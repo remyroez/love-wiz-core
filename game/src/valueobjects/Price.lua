@@ -1,11 +1,11 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Price'
+-- クラス：値段
+local Price = class 'Price'
 
 -- 初期化
-function Schema:initialize(t)
+function Price:initialize(t)
     t = t or {}
 
     self.buy = t.buy or 0
@@ -14,20 +14,20 @@ function Schema:initialize(t)
     self.uncurse = t.uncurse or math.floor(self.buy / 2)
 end
 
-function Schema:buyprice()
+function Price:buyprice()
     return self.buy
 end
 
-function Schema:sellprice()
+function Price:sellprice()
     return self.sell
 end
 
-function Schema:identifyprice()
+function Price:identifyprice()
     return self.identify
 end
 
-function Schema:uncurseprice()
+function Price:uncurseprice()
     return self.uncurse
 end
 
-return Schema
+return Price

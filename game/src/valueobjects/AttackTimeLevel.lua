@@ -1,11 +1,11 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'AttackTimeLevel'
+-- クラス：攻撃回数
+local AttackTimeLevel = class 'AttackTimeLevel'
 
 -- 初期化
-function Schema:initialize(t)
+function AttackTimeLevel:initialize(t)
     t = t or {}
 
     self.levelunit = t.levelunit or 0
@@ -13,13 +13,13 @@ function Schema:initialize(t)
 end
 
 -- オーバーライド：呼び出し
-function Schema:__call(...)
+function AttackTimeLevel:__call(...)
     return self:get(...)
 end
 
 -- レベルに応じた攻撃回数を返す
-function Schema:get(level)
+function AttackTimeLevel:get(level)
     return 1 + math.fllor(level / 5) + self.modifier
 end
 
-return Schema
+return AttackTimeLevel

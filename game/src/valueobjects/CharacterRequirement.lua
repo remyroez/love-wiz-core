@@ -1,17 +1,17 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'CharacterRequirement'
+-- クラス：キャラクター要件
+local CharacterRequirement = class 'CharacterRequirement'
 
--- クラス
+-- モジュール
 local Whitelist = require 'Whitelist'
 local Alignment = require 'enums.Alignment'
 local CharacterClass = require 'enums.CharacterClass'
 local Race = require 'enums.Race'
 
 -- 初期化
-function Schema:initialize(t)
+function CharacterRequirement:initialize(t)
     t = t or {}
 
     self.alignments = Whitelist(Alignment.EnumSet(t.alignments)._values)
@@ -20,14 +20,14 @@ function Schema:initialize(t)
 end
 
 -- オーバーライド：呼び出し
-function Schema:__call(...)
+function CharacterRequirement:__call(...)
     return self:allow(...)
 end
 
 -- チェック
-function Schema:allow(t)
+function CharacterRequirement:allow(t)
     t = t or {}
     return self.classes(t.class or t.klass) and self.races(t.race) and self.alignments(t.alignment)
 end
 
-return Schema
+return CharacterRequirement

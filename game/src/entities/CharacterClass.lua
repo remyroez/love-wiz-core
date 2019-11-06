@@ -1,21 +1,23 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'CharacterClass'
+-- クラス：キャラクタークラス
+local CharacterClass = class 'CharacterClass'
 
--- クラス
+-- モジュール
 local Alignment = require 'enums.Alignment'
-local SavingThrow = require 'schemas.SavingThrow'
-local Statistics = require 'schemas.Statistics'
-local Spellbook = require 'schemas.Spellbook'
-local SpellLearnLevel = require 'schemas.SpellLearnLevel'
-local AttackTimeLevel = require 'schemas.AttackTimeLevel'
-local NextLevel = require 'schemas.NextLevel'
 local Realm = require 'enums.Realm'
 
+local Spellbook = require 'models.Spellbook'
+local Statistics = require 'models.Statistics'
+
+local AttackTimeLevel = require 'valueobjects.AttackTimeLevel'
+local NextLevel = require 'valueobjects.NextLevel'
+local SavingThrow = require 'valueobjects.SavingThrow'
+local SpellLearnLevel = require 'valueobjects.SpellLearnLevel'
+
 -- 初期化
-function Schema:initialize(t)
+function CharacterClass:initialize(t)
     t = t or {}
 
     -- 名前
@@ -59,4 +61,4 @@ function Schema:initialize(t)
     self.nextlevel = NextLevel(t.nextlevel)
 end
 
-return Schema
+return CharacterClass

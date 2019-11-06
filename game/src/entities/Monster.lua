@@ -1,19 +1,20 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Monster'
+-- クラス：モンスター
+local Monster = class 'Monster'
 
--- クラス
-local Dice = require 'schemas.Dice'
-local Following = require 'schemas.Following'
+-- モジュール
+local Dice = require 'valueobjects.Dice'
+local Following = require 'valueobjects.Following'
+
 local Realm = require 'enums.Realm'
 local Element = require 'enums.Element'
 local MonsterClass = require 'enums.MonsterClass'
 local MonsterFeature = require 'enums.MonsterFeature'
 
 -- 初期化
-function Schema:initialize(t)
+function Monster:initialize(t)
     t = t or {}
 
     -- 名前／複数形
@@ -92,4 +93,4 @@ function Schema:initialize(t)
     self.features = MonsterFeature.EnumSet(t.features)
 end
 
-return Schema
+return Monster

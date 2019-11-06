@@ -2,11 +2,11 @@
 local class = require 'middleclass'
 local util = require 'util'
 
--- スキーマ
-local Schema = class 'Dice'
+-- クラス：ダイス
+local Dice = class 'Dice'
 
 -- 初期化
-function Schema:initialize(t)
+function Dice:initialize(t)
     t = t or {}
 
     self.roll = t.roll or 0
@@ -15,17 +15,17 @@ function Schema:initialize(t)
 end
 
 -- オーバーライド：呼び出し
-function Schema:__call(...)
+function Dice:__call(...)
     return self:throw(...)
 end
 
 -- オーバーライド：文字列化
-function Schema:__tostring()
+function Dice:__tostring()
     return '' .. self.roll .. 'd' .. self.side .. (self.modifier == 0 and '' or (self.modifier < 0 and self.modifier or ('+' .. self.modifier)))
 end
 
 -- ダイスロール
-function Schema:throw(randomizer)
+function Dice:throw(randomizer)
     randomizer = util.randomizer(randomizer)
 
     local value = self.modifier
@@ -37,13 +37,13 @@ function Schema:throw(randomizer)
 end
 
 -- 最大値
-function Schema:max()
+function Dice:max()
     return self.side * self.roll + self.modifier
 end
 
 -- 最低値
-function Schema:min()
+function Dice:min()
     return 1 * self.roll + self.modifier
 end
 
-return Schema
+return Dice

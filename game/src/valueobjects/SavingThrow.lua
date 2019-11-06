@@ -2,62 +2,62 @@
 local class = require 'middleclass'
 local util = require 'util'
 
--- スキーマ
-local Schema = class 'SavingThrow'
+-- クラス：セービングスロー
+local SavingThrow = class 'SavingThrow'
 
 -- 組み込み
-Schema:include(require 'Class')
+SavingThrow:include(require 'Class')
 
 -- 毒セーブ
-function Schema.static.savePoison(randomizer, save)
+function SavingThrow.static.savePoison(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- 麻痺セーブ
-function Schema.static.saveParalyze(randomizer, save)
+function SavingThrow.static.saveParalyze(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- クリティカルヒットセーブ
-function Schema.static.saveCriticalHit(randomizer, save, save2)
+function SavingThrow.static.saveCriticalHit(randomizer, save, save2)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save or randomizer(0, 100) > save2
 end
 
 -- 石化セーブ
-function Schema.static.saveStone(randomizer, save)
+function SavingThrow.static.saveStone(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- ブレスセーブ
-function Schema.static.saveBreath(randomizer, save)
+function SavingThrow.static.saveBreath(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) > save
 end
 
 -- ガス爆弾セーブ
-function Schema.static.saveGasBomb(randomizer, save)
+function SavingThrow.static.saveGasBomb(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) < save
 end
 
 -- 沈黙セーブ
-function Schema.static.saveSilence(randomizer, save)
+function SavingThrow.static.saveSilence(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 99) > save
 end
 
 -- メイジ／プリーストブラスターセーブ
-function Schema.static.saveBlaster(randomizer, save)
+function SavingThrow.static.saveBlaster(randomizer, save)
     randomizer = util.randomizer(randomizer)
     return randomizer(0, 19) < save
 end
 
 -- 初期化
-function Schema:initialize(t)
+function SavingThrow:initialize(t)
     t = t or {}
 
     -- 値
@@ -70,7 +70,7 @@ function Schema:initialize(t)
 end
 
 -- オーバーライド：文字列化
-function Schema:__tostring()
+function SavingThrow:__tostring()
     return self.values[1]
         .. '/' .. self.values[2]
         .. '/' .. self.values[3]
@@ -79,8 +79,8 @@ function Schema:__tostring()
 end
 
 -- オーバーライド：加算
-function Schema:__add(other)
-    other = other or Schema {}
+function SavingThrow:__add(other)
+    other = other or SavingThrow {}
     if self.class:isInstance(other) then
         return self.class {
             self.values[1] + other.values[1],
@@ -95,8 +95,8 @@ function Schema:__add(other)
 end
 
 -- オーバーライド：減算
-function Schema:__sub(other)
-    other = other or Schema {}
+function SavingThrow:__sub(other)
+    other = other or SavingThrow {}
     if self.class:isInstance(other) then
         return self.class{
             self.values[1] - other.values[1],
@@ -111,8 +111,8 @@ function Schema:__sub(other)
 end
 
 -- オーバーライド：比較
-function Schema:__eq(other)
-    other = other or Schema {}
+function SavingThrow:__eq(other)
+    other = other or SavingThrow {}
     return self.values[1] == other.values[1]
         and self.values[2] == other.values[2]
         and self.values[3] == other.values[3]
@@ -121,43 +121,43 @@ function Schema:__eq(other)
 end
 
 -- 毒
-function Schema:poison()
+function SavingThrow:poison()
     return self.values[1]
 end
 
 -- 麻痺
-function Schema:paralyze()
+function SavingThrow:paralyze()
     return self.values[1]
 end
 
 -- クリティカルヒット
-function Schema:criticalhit()
+function SavingThrow:criticalhit()
     return self.values[1]
 end
 
 -- 石化
-function Schema:stone()
+function SavingThrow:stone()
     return self.values[2]
 end
 
 -- ブレス
-function Schema:breath()
+function SavingThrow:breath()
     return self.values[4]
 end
 
 -- ガス爆弾
-function Schema:gasbomb()
+function SavingThrow:gasbomb()
     return self.values[4]
 end
 
 -- 沈黙
-function Schema:silence()
+function SavingThrow:silence()
     return self.values[5]
 end
 
 -- メイジ／プリーストブラスター
-function Schema:blaster()
+function SavingThrow:blaster()
     return self.values[5]
 end
 
-return Schema
+return SavingThrow
