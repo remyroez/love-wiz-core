@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- クラス：キャラクター要件
 local CharacterRequirement = class 'CharacterRequirement'
@@ -17,9 +18,9 @@ local Race = require 'enums.Race'
 function CharacterRequirement:initialize(t)
     t = t or {}
 
-    self.alignments = Whitelist(Alignment.EnumSet(t.alignments)._values)
-    self.classes = Whitelist(CharacterClass.EnumSet(t.classes)._values)
-    self.races = Whitelist(Race.EnumSet(t.races)._values)
+    self.alignments = util.freeze(Whitelist(Alignment.EnumSet(t.alignments)._values))
+    self.classes = util.freeze(Whitelist(CharacterClass.EnumSet(t.classes)._values))
+    self.races = util.freeze(Whitelist(Race.EnumSet(t.races)._values))
 end
 
 -- オーバーライド：呼び出し
