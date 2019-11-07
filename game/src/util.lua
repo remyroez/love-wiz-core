@@ -66,4 +66,25 @@ function util.randomizer(randomizer)
     return randomizer or love.math.random
 end
 
+-- モジュール引数からカレントパスを取得
+function util.currentpath(...)
+    return (...):gsub('%.init$', '') .. "."
+end
+
+-- モジュール読み込み関数を返す
+function util.requirer(...)
+    local path = util.currentpath(...)
+    return function (v)
+        if type(v) == 'table' then
+            local modules = {}
+            for _, name in ipairs(v) do
+                modules[name] = require(path .. name)
+            end
+            return modules
+        else
+            return require(path .. tostring(v))
+        end
+    end
+end
+
 return util

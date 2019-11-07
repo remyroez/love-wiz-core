@@ -8,8 +8,8 @@ local CharacterClass = class 'CharacterClass'
 local Alignment = require 'enums.Alignment'
 local Realm = require 'enums.Realm'
 
-local Spellbook = require 'models.Spellbook'
-local Statistics = require 'models.Statistics'
+local Spellbook = require 'entities.Spellbook'
+local Statistics = require 'entities.Statistics'
 
 local AttackTimeLevel = require 'valueobjects.AttackTimeLevel'
 local NextLevel = require 'valueobjects.NextLevel'

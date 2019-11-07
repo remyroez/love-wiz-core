@@ -5,7 +5,7 @@ local class = require 'middleclass'
 local Chest = class 'Chest'
 
 -- モジュール
-local Treasure = require 'schemas.Treasure'
+local Treasure = require 'valueobjects.Treasure'
 
 -- 初期化
 function Chest:initialize(t)

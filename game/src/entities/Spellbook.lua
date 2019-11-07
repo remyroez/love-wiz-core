@@ -6,7 +6,7 @@ local lume = require 'lume'
 local Spellbook = class 'Spellbook'
 
 -- モジュール
-local SpellLevel = require 'models.SpellLevel'
+local SpellLevel = require 'entities.SpellLevel'
 
 -- 初期化
 function Spellbook:initialize(t)
