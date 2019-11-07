@@ -7,6 +7,7 @@ local Age = class 'Age'
 -- 組み込み
 Age:include(require 'Class')
 Age:include(require 'Numeric')
+Age:include(require 'Readonly')
 
 -- １年の週数
 Age.static.weekofyear = 52

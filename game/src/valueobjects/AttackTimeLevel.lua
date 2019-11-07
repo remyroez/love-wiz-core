@@ -4,6 +4,9 @@ local class = require 'middleclass'
 -- クラス：攻撃回数
 local AttackTimeLevel = class 'AttackTimeLevel'
 
+-- 組み込み
+AttackTimeLevel:include(require 'Readonly')
+
 -- 初期化
 function AttackTimeLevel:initialize(t)
     t = t or {}

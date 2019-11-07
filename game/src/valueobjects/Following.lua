@@ -5,6 +5,9 @@ local util = require 'util'
 -- クラス：後続
 local Following = class 'Following'
 
+-- 組み込み
+Following:include(require 'Readonly')
+
 -- 初期化
 function Following:initialize(t)
     t = t or {}

@@ -4,6 +4,9 @@ local class = require 'middleclass'
 -- クラス：値段
 local Price = class 'Price'
 
+-- 組み込み
+Price:include(require 'Readonly')
+
 -- 初期化
 function Price:initialize(t)
     t = t or {}

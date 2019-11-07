@@ -5,6 +5,9 @@ local lume = require 'lume'
 -- クラス：呪文習得レベル
 local SpellLearnLevel = class 'SpellLearnLevel'
 
+-- 組み込み
+SpellLearnLevel:include(require 'Readonly')
+
 -- 初期化
 function SpellLearnLevel:initialize(t)
     t = t or {}

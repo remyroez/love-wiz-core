@@ -5,6 +5,9 @@ local util = require 'util'
 -- クラス：スペシャルパワー
 local SpecialPower = class 'SpecialPower'
 
+-- 組み込み
+SpecialPower:include(require 'Readonly')
+
 -- モジュール
 local SpecialPowerEnum = require 'enums.SpecialPower'
 

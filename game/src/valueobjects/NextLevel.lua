@@ -4,6 +4,9 @@ local class = require 'middleclass'
 -- クラス：次のレベルまでの経験値
 local NextLevel = class 'NextLevel'
 
+-- 組み込み
+NextLevel:include(require 'Readonly')
+
 -- 初期化
 function NextLevel:initialize(t)
     t = t or {}

@@ -7,6 +7,7 @@ local SavingThrow = class 'SavingThrow'
 
 -- 組み込み
 SavingThrow:include(require 'Class')
+SavingThrow:include(require 'Readonly')
 
 -- 毒セーブ
 function SavingThrow.static.savePoison(randomizer, save)

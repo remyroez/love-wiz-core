@@ -7,6 +7,7 @@ local Attribute = class 'Attribute'
 -- 組み込み
 Attribute:include(require 'Class')
 Attribute:include(require 'Clamp')
+Attribute:include(require 'Readonly')
 
 -- 初期化
 function Attribute:initialize(t)

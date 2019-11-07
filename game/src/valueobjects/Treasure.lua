@@ -5,6 +5,9 @@ local util = require 'util'
 -- クラス：宝物
 local Treasure = class 'Treasure'
 
+-- 組み込み
+Treasure:include(require 'Readonly')
+
 -- 初期化
 function Treasure:initialize(t)
     t = t or {}

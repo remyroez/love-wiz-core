@@ -8,6 +8,7 @@ local ArmorClass = class 'ArmorClass'
 -- 組み込み
 ArmorClass:include(require 'Class')
 ArmorClass:include(require 'Numeric')
+ArmorClass:include(require 'Readonly')
 
 -- 初期化
 function ArmorClass:initialize(v)

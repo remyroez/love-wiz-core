@@ -5,6 +5,9 @@ local util = require 'util'
 -- クラス：ダイス
 local Dice = class 'Dice'
 
+-- 組み込み
+Dice:include(require 'Readonly')
+
 -- 初期化
 function Dice:initialize(t)
     t = t or {}

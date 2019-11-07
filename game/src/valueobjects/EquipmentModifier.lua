@@ -4,6 +4,9 @@ local class = require 'middleclass'
 -- クラス：装備修正
 local EquipmentModifier = class 'EquipmentModifier'
 
+-- 組み込み
+EquipmentModifier:include(require 'Readonly')
+
 -- 初期化
 function EquipmentModifier:initialize(t)
     t = t or {}

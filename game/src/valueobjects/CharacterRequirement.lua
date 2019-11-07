@@ -4,6 +4,9 @@ local class = require 'middleclass'
 -- クラス：キャラクター要件
 local CharacterRequirement = class 'CharacterRequirement'
 
+-- 組み込み
+CharacterRequirement:include(require 'Readonly')
+
 -- モジュール
 local Whitelist = require 'Whitelist'
 local Alignment = require 'enums.Alignment'
