@@ -1,5 +1,6 @@
 
 local lume = require 'lume'
+local util = require 'util'
 
 -- 数値
 local Clamp = {}
@@ -11,6 +12,11 @@ function Clamp:initializeClamp(t)
     self.value = t.value or 0
     self.min = t.min or 0
     self.max = t.max or 0
+end
+
+-- オーバーライド：比較
+function Clamp:__eq(other)
+    return util.equaltable(self, other, { 'value', 'min', 'max' })
 end
 
 -- オーバーライド：文字列化

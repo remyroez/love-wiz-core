@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- クラス：装備修正
 local EquipmentModifier = class 'EquipmentModifier'
@@ -13,6 +14,11 @@ function EquipmentModifier:initialize(t)
 
     self.tohit = t.tohit or 0
     self.attacktimes = t.attacktimes or 0
+end
+
+-- オーバーライド：比較
+function EquipmentModifier:__eq(other)
+    return util.equaltable(self, other, { 'tohit', 'attacktimes' })
 end
 
 -- オーバーライド：呼び出し

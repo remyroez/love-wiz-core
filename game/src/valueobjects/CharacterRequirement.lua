@@ -23,6 +23,11 @@ function CharacterRequirement:initialize(t)
     self.races = util.freeze(Whitelist(Race.EnumSet(t.races)._values))
 end
 
+-- オーバーライド：比較
+function CharacterRequirement:__eq(other)
+    return util.equaltable(self, other, { 'alignments', 'classes', 'races' })
+end
+
 -- オーバーライド：呼び出し
 function CharacterRequirement:__call(...)
     return self:allow(...)

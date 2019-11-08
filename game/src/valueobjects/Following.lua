@@ -15,14 +15,19 @@ function Following:initialize(t)
     -- 確率
     self.probability = t.probability or 0
 
-    -- ＩＤ
-    self.id = t.id or 0
+    -- 後続者
+    self.follower = t.follower or 0
+end
+
+-- オーバーライド：比較
+function Following:__eq(other)
+    return util.equaltable(self, other, { 'probability', 'follower' })
 end
 
 -- 取得
 function Following:get(randomizer)
     randomizer = util.randomizer(randomizer)
-    return (randomizer(100) <= self.probability) and self.id or nil
+    return (randomizer(100) <= self.probability) and self.follower or nil
 end
 
 return Following

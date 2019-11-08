@@ -22,11 +22,17 @@ function Treasure:initialize(t)
     self.max = t.max or 0
 end
 
+-- オーバーライド：比較
+function Treasure:__eq(other)
+    return util.equaltable(self, other, { 'probability', 'min', 'max' })
+end
+
 -- オーバーライド：呼び出し
 function Treasure:__call(...)
     return self:get(...)
 end
 
+-- 獲得
 function Treasure:get(randomizer)
     randomizer = util.randomizer(randomizer)
 

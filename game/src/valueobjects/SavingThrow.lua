@@ -70,6 +70,11 @@ function SavingThrow:initialize(t)
     self.values[5] = self.values[5] or 0
 end
 
+-- オーバーライド：比較
+function SavingThrow:__eq(other)
+    return util.equalarray(self.values, other.values)
+end
+
 -- オーバーライド：文字列化
 function SavingThrow:__tostring()
     return self.values[1]

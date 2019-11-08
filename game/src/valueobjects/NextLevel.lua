@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- クラス：次のレベルまでの経験値
 local NextLevel = class 'NextLevel'
@@ -12,6 +13,11 @@ function NextLevel:initialize(t)
     t = t or {}
 
     self.exps = t or {}
+end
+
+-- オーバーライド：比較
+function NextLevel:__eq(other)
+    return util.equalarray(self.exps, other.exps)
 end
 
 -- 累積経験値からレベルを算出する

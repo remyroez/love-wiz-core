@@ -17,6 +17,11 @@ function Dice:initialize(t)
     self.modifier = t.modifier or 0
 end
 
+-- オーバーライド：比較
+function Dice:__eq(other)
+    return util.equaltable(self, other, { 'roll', 'side', 'modifier' })
+end
+
 -- オーバーライド：呼び出し
 function Dice:__call(...)
     return self:throw(...)

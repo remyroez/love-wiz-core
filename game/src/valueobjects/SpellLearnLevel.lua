@@ -1,6 +1,6 @@
 
 local class = require 'middleclass'
-local lume = require 'lume'
+local util = require 'util'
 
 -- クラス：呪文習得レベル
 local SpellLearnLevel = class 'SpellLearnLevel'
@@ -14,6 +14,11 @@ function SpellLearnLevel:initialize(t)
 
     self.first = t.first or 0
     self.interval = t.interval or 0
+end
+
+-- オーバーライド：比較
+function SpellLearnLevel:__eq(other)
+    return util.equaltable(self, other, { 'first', 'interval' })
 end
 
 -- オーバーライド：呼び出し

@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local util = require 'util'
 
 -- クラス：攻撃回数
 local AttackTimeLevel = class 'AttackTimeLevel'
@@ -13,6 +14,11 @@ function AttackTimeLevel:initialize(t)
 
     self.levelunit = t.levelunit or 0
     self.modifier = t.modifier or 0
+end
+
+-- オーバーライド：比較
+function AttackTimeLevel:__eq(other)
+    return util.equaltable(self, other, { 'levelunit', 'modifier' })
 end
 
 -- オーバーライド：呼び出し
