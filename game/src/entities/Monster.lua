@@ -19,11 +19,9 @@ function Monster:initialize(t)
 
     -- 名前／複数形
     self.name = t.name or ''
-    self.pname = t.pname or ''
 
     -- 真名／複数形
     self.realname = t.realname or ''
-    self.prealname = t.prealname or ''
 
     -- 姿／真の姿
     self.picture = t.picture or ''
@@ -62,9 +60,8 @@ function Monster:initialize(t)
     self.heal = t.heal or 0
 
     -- チェストＩＤ（徘徊／玄室）
-    self.chests = t.chests or {}
-    self.chests.wandering = self.chests.wandering or ''
-    self.chests.lair = self.chests.lair or ''
+    self.wanderingchest = t.wanderingchest or ''
+    self.lairchest = t.lairchest or ''
 
     -- 後続
     self.following = Following(t.following)
