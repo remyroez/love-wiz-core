@@ -1,6 +1,7 @@
 
 local class = require 'middleclass'
 local lume = require 'lume'
+local util = require 'util'
 
 -- クラス：スキルレベル
 local SpellLevel = class 'SpellLevel'
@@ -14,6 +15,12 @@ function SpellLevel:initialize(t)
 
     self.spells   = t.spells or {}
     self.point = SpellPoint(t.point)
+end
+
+-- オーバーライド：比較
+function SpellLevel:__eq(other)
+    return util.equalarray(self.spells, other.spells)
+        and self.point == other.point
 end
 
 -- スペルがあるかどうか

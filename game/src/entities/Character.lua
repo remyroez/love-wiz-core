@@ -5,7 +5,7 @@ local class = require 'middleclass'
 local Character = class 'Character'
 
 -- モジュール
-local Property = require 'entities.Property'
+local Possession = require 'entities.Possession'
 local Spellbook = require 'entities.Spellbook'
 local Statistics = require 'entities.Statistics'
 local Whereabouts = require 'entities.Whereabouts'
@@ -22,6 +22,9 @@ local Status = require 'enums.Status'
 -- 初期化
 function Character:initialize(t)
     t = t or {}
+
+    -- ＩＤ
+    self.id = t.id or ''
 
     -- 名前
     self.name = t.name or ''
@@ -54,10 +57,10 @@ function Character:initialize(t)
     self.gold = t.gold or 0
 
     -- 所持品
-    self.properties = {}
-    if t.properties then
-        for _, property in ipairs(t.properties) do
-            table.insert(self.properties, Property(property))
+    self.possessions = {}
+    if t.possessions then
+        for _, possession in ipairs(t.possessions) do
+            table.insert(self.possessions, Possession(possession))
         end
     end
 
@@ -86,6 +89,11 @@ function Character:initialize(t)
 
     -- 称号
     self.titles = t.titles or {}
+end
+
+-- オーバーライド：比較
+function Character:__eq(other)
+    return self.id == other.id
 end
 
 return Character

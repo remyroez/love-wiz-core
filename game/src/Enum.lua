@@ -167,6 +167,7 @@ function Enum:initialize(t)
     t = t or {}
 
     -- 要素を保持
+    self._enumvalues = {}
     self._values = {}
     self._keys = {}
     local value = 1
@@ -191,8 +192,10 @@ function Enum:initialize(t)
 
     -- 各キーとインデックスに値をコピー
     for k, v in pairs(self._values) do
-        self[k] = self(v)
-        self[v] = self(v)
+        local ev = self(v)
+        self[k] = ev
+        self[v] = ev
+        table.insert(self._enumvalues, ev)
     end
 end
 

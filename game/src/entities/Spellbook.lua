@@ -1,6 +1,7 @@
 
 local class = require 'middleclass'
 local lume = require 'lume'
+local util = require 'util'
 
 -- クラス：スペルブック
 local Spellbook = class 'Spellbook'
@@ -18,6 +19,11 @@ function Spellbook:initialize(t)
             table.insert(self.levels, SpellLevel(level))
         end
     end
+end
+
+-- オーバーライド：比較
+function Spellbook:__eq(other)
+    return util.equalarray(self.levels, other.levels)
 end
 
 -- スペルがあるかどうか

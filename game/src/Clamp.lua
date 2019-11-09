@@ -14,11 +14,6 @@ function Clamp:initializeClamp(t)
     self.max = t.max or 0
 end
 
--- オーバーライド：比較
-function Clamp:__eq(other)
-    return util.equaltable(self, other, { 'value', 'min', 'max' })
-end
-
 -- オーバーライド：文字列化
 function Clamp:__tostring()
     return tostring(self.value)
