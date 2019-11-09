@@ -5,10 +5,5 @@ return (require 'util').requirer(...) {
     'Chest',
     'Item',
     'Monster',
-    'Property',
     'Race',
-    'Spellbook',
-    'SpellLevel',
-    'Statistics',
-    'Whereabouts',
 }

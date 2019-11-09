@@ -26,6 +26,9 @@ function love.load()
             love.filesystem.createDirectory(screenshotDirectory)
         end
     end
+
+    local e = require 'entities'
+    local vo = require 'valueobjects'
 end
 
 -- 更新

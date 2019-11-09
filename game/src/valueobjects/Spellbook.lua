@@ -7,7 +7,7 @@ local util = require 'util'
 local Spellbook = class 'Spellbook'
 
 -- モジュール
-local SpellLevel = require 'entities.SpellLevel'
+local SpellLevel = require 'valueobjects.SpellLevel'
 
 -- 初期化
 function Spellbook:initialize(t)

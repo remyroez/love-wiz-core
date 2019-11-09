@@ -5,11 +5,10 @@ local class = require 'middleclass'
 local Character = class 'Character'
 
 -- モジュール
-local Possession = require 'entities.Possession'
-local Spellbook = require 'entities.Spellbook'
-local Statistics = require 'entities.Statistics'
-local Whereabouts = require 'entities.Whereabouts'
-
+local Possession = require 'valueobjects.Possession'
+local Spellbook = require 'valueobjects.Spellbook'
+local Statistics = require 'valueobjects.Statistics'
+local Whereabouts = require 'valueobjects.Whereabouts'
 local Age = require 'valueobjects.Age'
 local ArmorClass = require 'valueobjects.ArmorClass'
 local HitPoint = require 'valueobjects.HitPoint'

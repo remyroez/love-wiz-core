@@ -5,7 +5,7 @@ local class = require 'middleclass'
 local Race = class 'Race'
 
 -- クラス
-local Statistics = require 'entities.Statistics'
+local Statistics = require 'valueobjects.Statistics'
 local SavingThrow = require 'valueobjects.SavingThrow'
 
 -- 初期化
