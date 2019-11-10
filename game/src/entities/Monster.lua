@@ -1,28 +1,27 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Monster'
+-- クラス：モンスター
+local Monster = class 'Monster'
 
--- クラス
-local Dice = require 'schemas.Dice'
-local Following = require 'schemas.Following'
+-- モジュール
+local Dice = require 'valueobjects.Dice'
+local Following = require 'valueobjects.Following'
+
 local Realm = require 'enums.Realm'
 local Element = require 'enums.Element'
 local MonsterClass = require 'enums.MonsterClass'
 local MonsterFeature = require 'enums.MonsterFeature'
 
 -- 初期化
-function Schema:initialize(t)
+function Monster:initialize(t)
     t = t or {}
 
     -- 名前／複数形
     self.name = t.name or ''
-    self.pname = t.pname or ''
 
     -- 真名／複数形
     self.realname = t.realname or ''
-    self.prealname = t.prealname or ''
 
     -- 姿／真の姿
     self.picture = t.picture or ''
@@ -61,9 +60,8 @@ function Schema:initialize(t)
     self.heal = t.heal or 0
 
     -- チェストＩＤ（徘徊／玄室）
-    self.chests = t.chests or {}
-    self.chests.wandering = self.chests.wandering or ''
-    self.chests.lair = self.chests.lair or ''
+    self.wanderingchest = t.wanderingchest or ''
+    self.lairchest = t.lairchest or ''
 
     -- 後続
     self.following = Following(t.following)
@@ -92,4 +90,4 @@ function Schema:initialize(t)
     self.features = MonsterFeature.EnumSet(t.features)
 end
 
-return Schema
+return Monster

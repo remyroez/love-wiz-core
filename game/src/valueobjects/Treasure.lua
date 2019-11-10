@@ -2,11 +2,14 @@
 local class = require 'middleclass'
 local util = require 'util'
 
--- スキーマ
-local Schema = class 'Treasure'
+-- クラス：宝物
+local Treasure = class 'Treasure'
+
+-- 組み込み
+Treasure:include(require 'Readonly')
 
 -- 初期化
-function Schema:initialize(t)
+function Treasure:initialize(t)
     t = t or {}
 
     -- 確率
@@ -19,12 +22,18 @@ function Schema:initialize(t)
     self.max = t.max or 0
 end
 
+-- オーバーライド：比較
+function Treasure:__eq(other)
+    return util.equaltable(self, other, { 'probability', 'min', 'max' })
+end
+
 -- オーバーライド：呼び出し
-function Schema:__call(...)
+function Treasure:__call(...)
     return self:get(...)
 end
 
-function Schema:get(randomizer)
+-- 獲得
+function Treasure:get(randomizer)
     randomizer = util.randomizer(randomizer)
 
     local value = nil
@@ -34,4 +43,4 @@ function Schema:get(randomizer)
     return value
 end
 
-return Schema
+return Treasure

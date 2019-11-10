@@ -2,20 +2,21 @@
 local class = require 'middleclass'
 local lume = require 'lume'
 
--- スキーマ
-local Schema = class 'ArmorClass'
+-- クラス：アーマークラス
+local ArmorClass = class 'ArmorClass'
 
 -- 組み込み
-Schema:include(require 'Class')
-Schema:include(require 'Numeric')
+ArmorClass:include(require 'Class')
+ArmorClass:include(require 'Numeric')
+ArmorClass:include(require 'Readonly')
 
 -- 初期化
-function Schema:initialize(v)
+function ArmorClass:initialize(v)
     self:initializeNumeric(v)
 end
 
 -- オーバーライド：文字列化
-function Schema:__tostring()
+function ArmorClass:__tostring()
     if self.value <= -10 then
         return 'LO'
     else
@@ -23,4 +24,4 @@ function Schema:__tostring()
     end
 end
 
-return Schema
+return ArmorClass

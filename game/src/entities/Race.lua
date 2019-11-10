@@ -1,15 +1,15 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Race'
+-- クラス：種族
+local Race = class 'Race'
 
 -- クラス
-local SavingThrow = require 'schemas.SavingThrow'
-local Statistics = require 'schemas.Statistics'
+local Statistics = require 'valueobjects.Statistics'
+local SavingThrow = require 'valueobjects.SavingThrow'
 
 -- 初期化
-function Schema:initialize(t)
+function Race:initialize(t)
     t = t or {}
 
     -- 名前
@@ -22,4 +22,4 @@ function Schema:initialize(t)
     self.savingthrow = SavingThrow(t.savingthrow)
 end
 
-return Schema
+return Race

@@ -1,14 +1,14 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Chest'
+-- クラス：宝箱
+local Chest = class 'Chest'
 
--- クラス
-local Treasure = require 'schemas.Treasure'
+-- モジュール
+local Treasure = require 'valueobjects.Treasure'
 
 -- 初期化
-function Schema:initialize(t)
+function Chest:initialize(t)
     t = t or {}
 
     -- お金
@@ -27,11 +27,11 @@ function Schema:initialize(t)
 end
 
 -- オーバーライド：呼び出し
-function Schema:__call(...)
+function Chest:__call(...)
     return self:get(...)
 end
 
-function Schema:get(randomizer)
+function Chest:get(randomizer)
     local treasures = {}
 
     treasures.gold = self.gold:get(randomizer) or 0
@@ -47,4 +47,4 @@ function Schema:get(randomizer)
     return treasures
 end
 
-return Schema
+return Chest

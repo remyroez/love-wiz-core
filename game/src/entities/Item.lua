@@ -1,23 +1,24 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Item'
+-- クラス：アイテム
+local Item = class 'Item'
 
--- クラス
-local ArmorClass = require 'schemas.ArmorClass'
-local Dice = require 'schemas.Dice'
-local CharacterRequirement = require 'schemas.CharacterRequirement'
-local SpecialPower = require 'schemas.SpecialPower'
-local Price = require 'schemas.Price'
-local EquipmentModifier = require 'schemas.EquipmentModifier'
+-- モジュール
+local ArmorClass = require 'valueobjects.ArmorClass'
+local Dice = require 'valueobjects.Dice'
+local CharacterRequirement = require 'valueobjects.CharacterRequirement'
+local SpecialPower = require 'valueobjects.SpecialPower'
+local Price = require 'valueobjects.Price'
+local EquipmentModifier = require 'valueobjects.EquipmentModifier'
+
 local Element = require 'enums.Element'
 local MonsterClass = require 'enums.MonsterClass'
 local ItemFeature = require 'enums.ItemFeature'
 local ItemClass = require 'enums.ItemClass'
 
 -- 初期化
-function Schema:initialize(t)
+function Item:initialize(t)
     t = t or {}
 
     -- 名前
@@ -72,4 +73,4 @@ function Schema:initialize(t)
     self.resists = Element.EnumSet(t.resists)
 end
 
-return Schema
+return Item

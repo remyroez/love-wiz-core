@@ -1,25 +1,29 @@
 
 local class = require 'middleclass'
 
--- スキーマ
-local Schema = class 'Character'
+-- クラス：キャラクター
+local Character = class 'Character'
 
--- クラス
-local Age = require 'schemas.Age'
-local ArmorClass = require 'schemas.ArmorClass'
-local HitPoint = require 'schemas.HitPoint'
-local Property = require 'schemas.Property'
-local Spellbook = require 'schemas.Spellbook'
-local Statistics = require 'schemas.Statistics'
-local Whereabouts = require 'schemas.Whereabouts'
-local Race = require 'enums.Race'
-local CharacterClass = require 'enums.CharacterClass'
+-- モジュール
+local Possession = require 'valueobjects.Possession'
+local Spellbook = require 'valueobjects.Spellbook'
+local Statistics = require 'valueobjects.Statistics'
+local Whereabouts = require 'valueobjects.Whereabouts'
+local Age = require 'valueobjects.Age'
+local ArmorClass = require 'valueobjects.ArmorClass'
+local HitPoint = require 'valueobjects.HitPoint'
+
 local Alignment = require 'enums.Alignment'
+local CharacterClass = require 'enums.CharacterClass'
+local Race = require 'enums.Race'
 local Status = require 'enums.Status'
 
 -- 初期化
-function Schema:initialize(t)
+function Character:initialize(t)
     t = t or {}
+
+    -- ＩＤ
+    self.id = t.id or ''
 
     -- 名前
     self.name = t.name or ''
@@ -52,10 +56,10 @@ function Schema:initialize(t)
     self.gold = t.gold or 0
 
     -- 所持品
-    self.properties = {}
-    if t.properties then
-        for _, property in ipairs(t.properties) do
-            table.insert(self.properties, Property(property))
+    self.possessions = {}
+    if t.possessions then
+        for _, possession in ipairs(t.possessions) do
+            table.insert(self.possessions, Possession(possession))
         end
     end
 
@@ -86,4 +90,9 @@ function Schema:initialize(t)
     self.titles = t.titles or {}
 end
 
-return Schema
+-- オーバーライド：比較
+function Character:__eq(other)
+    return self.id == other.id
+end
+
+return Character
