@@ -1,4 +1,9 @@
 
+local util = require 'util'
+
+-- リリース版かどうか
+local isRelease = love.filesystem.isFused()
+
 -- デバッグモード
 local debugMode = true
 
@@ -11,11 +16,10 @@ local screenshot
 local screenshotDirectory = 'screenshot'
 
 -- アプリケーション
-local application = (require 'Game')()
-application:setDebugMode(debugMode)
+local application = (require 'Application')()
 
 -- 読み込み
-function love.load()
+function love.load(args)
     -- ランダムシードの設定
     love.math.setRandomSeed(love.timer.getTime())
 
@@ -25,6 +29,20 @@ function love.load()
         if dir == nil then
             love.filesystem.createDirectory(screenshotDirectory)
         end
+    end
+
+    -- 引数の判定
+    if not isRelease and util.contains(args, '--test') then
+        -- テスト
+        application = (require 'test.Runner')()
+    else
+        -- ゲーム
+        application = (require 'Game')()
+    end
+
+    -- デバッグモード設定
+    if not isRelease then
+        application:setDebugMode(debugMode)
     end
 end
 
@@ -59,10 +77,10 @@ function love.keypressed(key, scancode, isrepeat)
     else]]if key == 'printscreen' then
         -- スクリーンショット
         love.graphics.captureScreenshot((screenshotDirectory .. '/') .. os.time() .. '.png')
-    elseif key == 'f5' then
+    elseif not isRelease and key == 'f5' then
         -- リスタート
         love.event.quit('restart')
-    elseif key == 'f12' then
+    elseif not isRelease and key == 'f12' then
         -- デバッグモード切り替え
         debugMode = not debugMode
 

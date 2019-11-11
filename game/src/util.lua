@@ -131,4 +131,9 @@ function util.equalarray(a, b)
     return equal
 end
 
+-- 存在チェック
+function util.contains(t, v)
+    return not not lume.find(t, v)
+end
+
 return util
