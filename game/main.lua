@@ -44,6 +44,8 @@ function love.load(args)
     if not isRelease then
         application:setDebugMode(debugMode)
     end
+
+    application:load(args)
 end
 
 -- 更新
