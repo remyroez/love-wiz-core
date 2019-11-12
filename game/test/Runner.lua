@@ -1,5 +1,6 @@
 
 local class = require 'middleclass'
+local lume = require 'lume'
 local lust = require 'test.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
 
@@ -28,13 +29,13 @@ function Runner:load(args)
     print()
 
     -- テスト実行
-    self:test(args)
+    local time = lume.time(self.test, self, args)
 
     -- エラー数とパス数を出力
     if lust.errors > 0 then
         io.write(red .. lust.errors .. normal .. ' failed, ')
     end
-    print(green .. lust.passes .. normal .. ' passed')
+    print(green .. lust.passes .. normal .. ' passed in ' .. time .. ' seconds.')
 
     -- エラー、または自動終了なら終了
     if lust.errors > 0 then
@@ -46,18 +47,27 @@ end
 
 -- テスト
 function Runner:test(args)
-    describe('requires', function ()
+    describe('require-all', function ()
+        it('src', function ()
+            expect(require 'src').to.be.a('table')
+        end)
+        it('di', function ()
+            expect(require 'di.container').to.be.a('table')
+        end)
         it('entities', function ()
             expect(require 'entities').to.be.a('table')
         end)
         it('enums', function ()
             expect(require 'enums').to.be.a('table')
         end)
-        it('valueobjects', function ()
-            expect(require 'valueobjects').to.be.a('table')
-        end)
         it('Game', function ()
             expect(require 'Game').to.be.a('table')
+        end)
+        it('scenes', function ()
+            expect(require 'scenes').to.be.a('table')
+        end)
+        it('valueobjects', function ()
+            expect(require 'valueobjects').to.be.a('table')
         end)
     end)
 end
