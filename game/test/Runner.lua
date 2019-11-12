@@ -9,16 +9,55 @@ local Application = require 'Application'
 -- アプリケーション：テストランナー
 local Runner = class('Runner', Application)
 
+-- コンソール色変更
+local red = string.char(27) .. '[31m'
+local green = string.char(27) .. '[32m'
+local normal = string.char(27) .. '[0m'
+
 -- 初期化
 function Runner:initialize(...)
     Application.initialize(self, ...)
+
+    -- 自動終了
+    self.autoquit = true
 end
 
 -- 読み込み
-function Runner:load(...)
-    describe('test-describe', function ()
-        it('test-it', function ()
-            expect(1).to.be.a('number')
+function Runner:load(args)
+    -- 空行
+    print()
+
+    -- テスト実行
+    self:test(args)
+
+    -- エラー数とパス数を出力
+    if lust.errors > 0 then
+        io.write(red .. lust.errors .. normal .. ' failed, ')
+    end
+    print(green .. lust.passes .. normal .. ' passed')
+
+    -- エラー、または自動終了なら終了
+    if lust.errors > 0 then
+        love.event.quit(1)
+    elseif self.autoquit then
+        love.event.quit()
+    end
+end
+
+-- テスト
+function Runner:test(args)
+    describe('requires', function ()
+        it('entities', function ()
+            expect(require 'entities').to.be.a('table')
+        end)
+        it('enums', function ()
+            expect(require 'enums').to.be.a('table')
+        end)
+        it('valueobjects', function ()
+            expect(require 'valueobjects').to.be.a('table')
+        end)
+        it('Game', function ()
+            expect(require 'Game').to.be.a('table')
         end)
     end)
 end
