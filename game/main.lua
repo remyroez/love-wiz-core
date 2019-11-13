@@ -1,6 +1,5 @@
 
 local lume = require 'lume'
-local util = require 'util'
 
 -- リリース版かどうか
 local isRelease = love.filesystem.isFused()
@@ -33,7 +32,7 @@ function love.load(args)
     end
 
     -- 引数の判定
-    if not isRelease and util.contains(args, '--test') then
+    if not isRelease and (not not lume.find(args, '--test')) then
         -- テスト
         lume.remove(args, '--test')
         application = (require 'test.Runner')()
