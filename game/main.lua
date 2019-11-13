@@ -1,4 +1,5 @@
 
+local lume = require 'lume'
 local util = require 'util'
 
 -- リリース版かどうか
@@ -34,6 +35,7 @@ function love.load(args)
     -- 引数の判定
     if not isRelease and util.contains(args, '--test') then
         -- テスト
+        lume.remove(args, '--test')
         application = (require 'test.Runner')()
     else
         -- ゲーム
