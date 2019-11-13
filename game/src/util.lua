@@ -18,7 +18,7 @@ end
 
 -- クラスのインスタンスかどうか調べる
 function util.isInstance(class, instance)
-    return lume.call(instance.isInstanceOf, instance, class)
+    return type(instance) == 'table' and lume.call(instance.isInstanceOf, instance, class) or false
 end
 
 -- メタメソッド
@@ -133,7 +133,7 @@ end
 
 -- 存在チェック
 function util.contains(t, v)
-    return not not lume.find(t, v)
+    return type(t) == 'table' and (not not lume.find(t, v)) or false
 end
 
 return util
