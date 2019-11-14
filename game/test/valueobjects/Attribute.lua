@@ -3,7 +3,7 @@ local describe, it, expect = lust.describe, lust.it, lust.expect
 
 local Attribute = require 'valueobjects.Attribute'
 
-describe('entities/Attribute', function ()
+describe('Attribute', function ()
     it('instantiate', function ()
         expect(Attribute()).to.be.a('table')
     end)

@@ -1,7 +1,7 @@
 local lust = require 'test.lust'
 local describe, it, expect = lust.describe, lust.it, lust.expect
 
-describe('require-all', function ()
+describe('requires', function ()
     it('src', function ()
         expect(require 'src').to.be.a('table')
     end)

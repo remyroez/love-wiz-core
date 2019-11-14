@@ -5,7 +5,7 @@ local Statistics = require 'valueobjects.Statistics'
 local Attribute = require 'valueobjects.Attribute'
 local AttributeEnum = require 'enums.Attribute'
 
-describe('entities/Statistics', function ()
+describe('Statistics', function ()
     it('instantiate', function ()
         expect(Statistics()).to.be.a('table')
     end)
