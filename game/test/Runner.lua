@@ -21,6 +21,22 @@ local function fail(name, message)
     print(string.rep('\t', lust.level + 1) .. red .. message .. normal)
 end
 
+-- 列挙
+local function enumrate(file, folder)
+    local path = folder .. '/' .. file
+    local info = love.filesystem.getInfo(path)
+    if info == nil then
+        return ''
+    elseif info.type == 'file' then
+        return path
+    elseif info.type == 'directory' then
+        local files = love.filesystem.getDirectoryItems(path)
+        return lume.map(files, function (v) return enumrate(v, path) end)
+    else
+        return ''
+    end
+end
+
 -- 初期化
 function Runner:initialize(...)
     Application.initialize(self, ...)
@@ -43,6 +59,8 @@ function Runner:load(args)
     end
     lume.remove(files, 'Runner.lua')
     lume.remove(files, 'lust.lua')
+
+    files = lume.map(files, function (v) return enumrate(v, 'test') end)
 
     -- テスト実行
     local time = lume.time(self.test, self, files)
@@ -67,23 +85,27 @@ end
 
 -- テスト
 function Runner:test(files)
-    for _, name in ipairs(files) do
-        -- ロード
-        local ok, chunk = pcall(love.filesystem.load, 'test/' .. name)
-        if not ok then
-            -- ロード失敗
-            fail('load ' .. name, chunk)
+    for _, file in ipairs(files) do
+        if type(file) == 'table' then
+            self:test(file)
         else
-            -- ロード成功
-            -- 実行
-            local success, result = pcall(chunk)
-            if not success then
-                -- 実行失敗
-                fail('do ' .. name, result)
+            -- ロード
+            local ok, chunk = pcall(love.filesystem.load, file)
+            if not ok then
+                -- ロード失敗
+                fail('load ' .. file, chunk)
             else
-                -- 実行成功
-                if result ~= nil then
-                    table.insert(self.pending, result)
+                -- ロード成功
+                -- 実行
+                local success, result = pcall(chunk)
+                if not success then
+                    -- 実行失敗
+                    fail('do ' .. file, result)
+                else
+                    -- 実行成功
+                    if result ~= nil then
+                        table.insert(self.pending, result)
+                    end
                 end
             end
         end
