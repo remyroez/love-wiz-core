@@ -31,7 +31,9 @@ local function enumrate(file, folder)
         return path
     elseif info.type == 'directory' then
         local files = love.filesystem.getDirectoryItems(path)
-        return lume.map(files, function (v) return enumrate(v, path) end)
+        local t = lume.map(files, function (v) return enumrate(v, path) end)
+        t.path = file
+        return t
     else
         return ''
     end
@@ -54,6 +56,7 @@ function Runner:load(args)
     local files = nil
     if type(args) ~= 'table' or #args == 0 then
         files = love.filesystem.getDirectoryItems('test')
+        files.path = 'test'
     else
         files = lume.clone(args)
     end
@@ -87,7 +90,14 @@ end
 function Runner:test(files)
     for _, file in ipairs(files) do
         if type(file) == 'table' then
+            if file.path then
+                print(string.rep('\t', lust.level) .. file.path)
+                lust.level = lust.level + 1
+            end
             self:test(file)
+            if file.path then
+                lust.level = lust.level - 1
+            end
         else
             -- ロード
             local ok, chunk = pcall(love.filesystem.load, file)
