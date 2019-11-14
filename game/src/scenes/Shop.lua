@@ -6,7 +6,7 @@ local lume = require 'lume'
 local Super = require 'Scene'
 
 -- クラス
-local Scene = class('Scene', Super)
+local Scene = class('Shop', Super)
 
 -- 組み込み
 Scene:include(require 'stateful')

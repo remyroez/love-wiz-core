@@ -7,8 +7,6 @@ local Application = class 'Application'
 -- 初期化
 function Application:initialize(...)
     self.debugMode = false
-
-    self:load(...)
 end
 
 -- デバッグモードの設定
