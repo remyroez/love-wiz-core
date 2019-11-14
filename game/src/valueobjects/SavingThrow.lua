@@ -9,54 +9,6 @@ local SavingThrow = class 'SavingThrow'
 SavingThrow:include(require 'Class')
 SavingThrow:include(require 'Readonly')
 
--- 毒セーブ
-function SavingThrow.static.savePoison(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) > save
-end
-
--- 麻痺セーブ
-function SavingThrow.static.saveParalyze(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) > save
-end
-
--- クリティカルヒットセーブ
-function SavingThrow.static.saveCriticalHit(randomizer, save, save2)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) > save or randomizer(0, 100) > save2
-end
-
--- 石化セーブ
-function SavingThrow.static.saveStone(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) > save
-end
-
--- ブレスセーブ
-function SavingThrow.static.saveBreath(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) > save
-end
-
--- ガス爆弾セーブ
-function SavingThrow.static.saveGasBomb(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) < save
-end
-
--- 沈黙セーブ
-function SavingThrow.static.saveSilence(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 99) > save
-end
-
--- メイジ／プリーストブラスターセーブ
-function SavingThrow.static.saveBlaster(randomizer, save)
-    randomizer = util.randomizer(randomizer)
-    return randomizer(0, 19) < save
-end
-
 -- 初期化
 function SavingThrow:initialize(t)
     t = t or {}
@@ -116,16 +68,6 @@ function SavingThrow:__sub(other)
     end
 end
 
--- オーバーライド：比較
-function SavingThrow:__eq(other)
-    other = other or SavingThrow {}
-    return self.values[1] == other.values[1]
-        and self.values[2] == other.values[2]
-        and self.values[3] == other.values[3]
-        and self.values[4] == other.values[4]
-        and self.values[5] == other.values[5]
-end
-
 -- 毒
 function SavingThrow:poison()
     return self.values[1]
@@ -164,6 +106,62 @@ end
 -- メイジ／プリーストブラスター
 function SavingThrow:blaster()
     return self.values[5]
+end
+
+-- 毒セーブ
+function SavingThrow:savePoison(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:poison()
+    return randomizer(0, 19) > save
+end
+
+-- 麻痺セーブ
+function SavingThrow:saveParalyze(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:paralyze()
+    return randomizer(0, 19) > save
+end
+
+-- クリティカルヒットセーブ
+function SavingThrow:saveCriticalHit(randomizer, save, save2)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:criticalhit()
+    return randomizer(0, 19) > save or randomizer(0, 100) > save2
+end
+
+-- 石化セーブ
+function SavingThrow:saveStone(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:stone()
+    return randomizer(0, 19) > save
+end
+
+-- ブレスセーブ
+function SavingThrow:saveBreath(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:breath()
+    return randomizer(0, 19) > save
+end
+
+-- ガス爆弾セーブ
+function SavingThrow:saveGasBomb(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:gasbomb()
+    return randomizer(0, 19) < save
+end
+
+-- 沈黙セーブ
+function SavingThrow:saveSilence(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:silence()
+    return randomizer(0, 99) > save
+end
+
+-- メイジ／プリーストブラスターセーブ
+function SavingThrow:saveBlaster(randomizer, save)
+    randomizer = util.randomizer(randomizer)
+    save = save or self:blaster()
+    return randomizer(0, 19) < save
 end
 
 return SavingThrow
