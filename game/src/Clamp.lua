@@ -9,9 +9,13 @@ local Clamp = {}
 function Clamp:initializeClamp(t)
     t = t or {}
 
-    self.value = t.value or 0
+    if type(t) == 'number' then
+        t = { value = t, min = t, max = t }
+    end
+
     self.min = t.min or 0
     self.max = t.max or 0
+    self.value = self:clamp(t.value or 0)
 end
 
 -- オーバーライド：文字列化
