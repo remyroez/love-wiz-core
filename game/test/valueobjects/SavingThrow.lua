@@ -80,4 +80,52 @@ describe('SavingThrow', function ()
     it('blaster', function ()
         expect(instance:blaster()).to.be(5)
     end)
+
+    local mindice = function (min, max)
+        return min or max
+    end
+
+    local maxdice = function (min, max)
+        return max or min
+    end
+
+    it('savePoison', function ()
+        expect(instance:savePoison(mindice)).to_not.be.truthy()
+        expect(instance:savePoison(maxdice)).to.be.truthy()
+    end)
+
+    it('saveParalyze', function ()
+        expect(instance:saveParalyze(mindice)).to_not.be.truthy()
+        expect(instance:saveParalyze(maxdice)).to.be.truthy()
+    end)
+
+    it('saveCriticalHit', function ()
+        expect(instance:saveCriticalHit(mindice), 50).to_not.be.truthy()
+        expect(instance:saveCriticalHit(maxdice), 50).to.be.truthy()
+    end)
+
+    it('saveStone', function ()
+        expect(instance:saveStone(mindice)).to_not.be.truthy()
+        expect(instance:saveStone(maxdice)).to.be.truthy()
+    end)
+
+    it('saveBreath', function ()
+        expect(instance:saveBreath(mindice)).to_not.be.truthy()
+        expect(instance:saveBreath(maxdice)).to.be.truthy()
+    end)
+
+    it('saveGasBomb', function ()
+        expect(instance:saveGasBomb(mindice)).to.be.truthy()
+        expect(instance:saveGasBomb(maxdice)).to_not.be.truthy()
+    end)
+
+    it('saveSilence', function ()
+        expect(instance:saveSilence(mindice)).to_not.be.truthy()
+        expect(instance:saveSilence(maxdice)).to.be.truthy()
+    end)
+
+    it('saveBlaster', function ()
+        expect(instance:saveBlaster(mindice)).to.be.truthy()
+        expect(instance:saveBlaster(maxdice)).to_not.be.truthy()
+    end)
 end)
