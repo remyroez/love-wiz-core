@@ -1,5 +1,6 @@
 return {
     {
+        id = 'human',
         name = 'human',
         statistics = {
             strength = { value = 8, min = 3, max = 18 },
@@ -14,6 +15,7 @@ return {
         }
     },
     {
+        id = 'elf',
         name = 'elf',
         statistics = {
             strength = { value = 7, min = 3, max = 18 },
@@ -28,6 +30,7 @@ return {
         }
     },
     {
+        id = 'dwarf',
         name = 'dwarf',
         statistics = {
             strength = { value = 10, min = 3, max = 18 },
@@ -42,6 +45,7 @@ return {
         }
     },
     {
+        id = 'gnome',
         name = 'gnome',
         statistics = {
             strength = { value = 7, min = 3, max = 18 },
@@ -56,6 +60,7 @@ return {
         }
     },
     {
+        id = 'hobbit',
         name = 'hobbit',
         statistics = {
             strength = { value = 5, min = 3, max = 18 },
