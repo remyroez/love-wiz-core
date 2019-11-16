@@ -18,11 +18,13 @@ end
 -- リセット
 function Repository:reset()
     lume.clear(self.entities)
+    lume.clear(self.entities)
 end
 
 -- ファイル読み込み
 function Repository:loadFile(file)
     local succeeded = false
+    file = file or ''
     local info = love.filesystem.getInfo(file)
     if info == nil then
         -- ファイルがない
@@ -59,7 +61,11 @@ end
 function Repository:loadDataTable(t)
     local n = #self.entities
     for _, data in ipairs(t) do
-        table.insert(self.entities, self:loadData(data))
+        local loaded = self:loadData(data)
+        table.insert(self.entities, loaded)
+        if loaded.id then
+            self.entities[loaded.id] = loaded
+        end
     end
     return #self.entities - n
 end
@@ -75,8 +81,8 @@ function Repository:saveFile(file)
 end
 
 -- 取得
-function Repository:get(key)
-    return self.entities[key]
+function Repository:get(id)
+    return self.entities[id]
 end
 
 return Repository
