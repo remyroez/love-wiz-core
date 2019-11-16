@@ -21,21 +21,40 @@ local function fail(name, message)
     print(string.rep('\t', lust.level + 1) .. red .. message .. normal)
 end
 
+-- 除外リスト
+local exclusions = {
+    'Runner.lua',
+    'lust.lua',
+    'assets',
+}
+
 -- 列挙
 local function enumrate(file, folder)
+    -- 除外する対象かチェック
+    if lume.find(exclusions, file) then
+        return false
+    end
+
+    -- パス
     local path = folder .. '/' .. file
+
+    -- ファイル情報
     local info = love.filesystem.getInfo(path)
     if info == nil then
-        return ''
+        -- 見つからなかった
+        return false
     elseif info.type == 'file' then
+        -- ファイルだった
         return path
     elseif info.type == 'directory' then
+        -- ディレクトリだったら、ファイルを列挙
         local files = love.filesystem.getDirectoryItems(path)
         local t = lume.map(files, function (v) return enumrate(v, path) end)
         t.path = file
         return t
     else
-        return ''
+        -- それ以外
+        return false
     end
 end
 
@@ -60,9 +79,6 @@ function Runner:load(args)
     else
         files = lume.clone(args)
     end
-    lume.remove(files, 'Runner.lua')
-    lume.remove(files, 'lust.lua')
-
     files = lume.map(files, function (v) return enumrate(v, 'test') end)
 
     -- テスト実行
@@ -89,7 +105,9 @@ end
 -- テスト
 function Runner:test(files)
     for _, file in ipairs(files) do
-        if type(file) == 'table' then
+        if not file then
+            -- スキップ
+        elseif type(file) == 'table' then
             if file.path then
                 print(string.rep('\t', lust.level) .. file.path)
                 lust.level = lust.level + 1
