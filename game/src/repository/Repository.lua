@@ -8,10 +8,14 @@ local Repository = class 'Repository'
 -- 初期化
 function Repository:initialize(t)
     t = t or {}
+    self.file = t.file or ''
     self.entities = {}
 
     if type(t.entities) == 'table' then
         self:loadDataTable(t.entities)
+    end
+    if type(self.file) == 'string' and #self.file > 0 then
+        self:load(self.file)
     end
 end
 
@@ -22,7 +26,7 @@ function Repository:reset()
 end
 
 -- ファイル読み込み
-function Repository:loadFile(file)
+function Repository:load(file)
     local succeeded = false
     file = file or ''
     local info = love.filesystem.getInfo(file)
@@ -76,13 +80,31 @@ function Repository:loadData(t)
 end
 
 -- ファイル書き込み
-function Repository:saveFile(file)
+function Repository:save(file)
     return false
 end
 
 -- 取得
 function Repository:get(id)
     return self.entities[id]
+end
+
+-- 設定
+function Repository:set(data)
+    if data.id then
+        self.entities[data.id] = data
+    end
+    local found = false
+    for i, value in ipairs(self.entities) do
+        if value == data then
+            self.entities[i] = data
+            found = true
+            break
+        end
+    end
+    if not found then
+        table.insert(self.entities, data)
+    end
 end
 
 return Repository

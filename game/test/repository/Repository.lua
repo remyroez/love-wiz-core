@@ -50,15 +50,30 @@ describe('Repository', function ()
         end)
     end)
 
+    describe('set', function ()
+        it('set dummy2', function ()
+            instance:set { id = 'dummy2', foo = 42, bar = 42 }
+            local t = instance:get 'dummy2'
+            expect(t.foo).to.be(42)
+        end)
+        it('set dummy3', function ()
+            instance:set { id = 'dummy3', foo = 111, bar = 999 }
+            local t = instance:get 'dummy3'
+            expect(t.id).to.be('dummy3')
+            expect(t.foo).to.be(111)
+            expect(t.bar).to.be(999)
+        end)
+    end)
+
     it('reset', function ()
         instance:reset()
         expect(instance:get 'dummy2').to.be.a('nil')
         expect(instance:get(1)).to.be.a('nil')
     end)
 
-    describe('loadFile', function ()
+    describe('load', function ()
         it('load file', function ()
-            instance:loadFile(file)
+            instance:load(file)
         end)
         it('get dummy2', function ()
             local t = instance:get 'dummy2'
@@ -76,7 +91,7 @@ describe('Repository', function ()
         end)
     end)
 
-    it('saveFile', function ()
-        expect(instance:saveFile(file)).to_not.be.truthy()
+    it('save', function ()
+        expect(instance:save(file)).to_not.be.truthy()
     end)
 end)
