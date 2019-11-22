@@ -34,7 +34,7 @@ function Monster:initialize(t)
     self.hpdice = Dice(t.hpdice)
 
     -- クラス
-    self.klass = MonsterClass(t.class)
+    self.klass = MonsterClass(t.class or 'none')
 
     -- アーマークラス
     self.ac = t.ac or 0
@@ -78,7 +78,7 @@ function Monster:initialize(t)
     self.unique = t.unique or 0
 
     -- ブレス
-    self.breath = Element(t.breath)
+    self.breath = Element(t.breath or 'none')
 
     -- 呪文抵抗
     self.resistspell = t.resistspell or 0
