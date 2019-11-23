@@ -15,7 +15,7 @@ local SpecialPowerEnum = require 'enums.SpecialPower'
 function SpecialPower:initialize(t)
     t = t or {}
 
-    self.power = SpecialPowerEnum(self.power)
+    self.power = SpecialPowerEnum(self.power or 'none')
     self.changingprobability = self.changingprobability or 0
     self.changeditem = self.changeditem or 0
 end
