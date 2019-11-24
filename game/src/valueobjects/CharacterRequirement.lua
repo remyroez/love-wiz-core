@@ -36,7 +36,7 @@ end
 -- チェック
 function CharacterRequirement:allow(t)
     t = t or {}
-    return self.classes(t.class or t.klass) and self.races(t.race) and self.alignments(t.alignment)
+    return self.classes(CharacterClass(t.class or t.klass)) and self.races(Race(t.race)) and self.alignments(Alignment(t.alignment))
 end
 
 return CharacterRequirement
