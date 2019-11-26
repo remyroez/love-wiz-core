@@ -35,11 +35,6 @@ function EquipmentModifier:__add(other)
     end
 end
 
--- オーバーライド：比較
-function EquipmentModifier:__eq(other)
-    return self.tohit == other.tohit and self.attacktimes == other.attacktimes
-end
-
 -- 修正
 function EquipmentModifier:modify(t)
     t = t or {}
