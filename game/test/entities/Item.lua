@@ -13,16 +13,34 @@ describe('Item', function ()
         realname = 'foobar',
         class = 'gauntlet',
         equipable = {
-
+            alignments = {
+                'neutral',
+            },
+            classes = {
+                'bishop',
+            },
+            races = {
+                'elf',
+            }
         },
         cursable = {
-
+            alignments = {
+                'evil'
+            },
+            classes = {
+                'ninja',
+            },
+            races = {
+                'gnome',
+            }
         },
         specialpower = {
-
+            power = 'lose_strength',
+            changingprobability = 50,
+            changeditem = 'foobar',
         },
         prices = {
-
+            buy = 123456,
         },
         spell = 'baz',
         heal = 123,
@@ -36,7 +54,8 @@ describe('Item', function ()
             modifier = 3,
         },
         modifier = {
-
+            tohit = 123,
+            attacktimes = 456,
         },
         features = {
             'criticallyhit'
