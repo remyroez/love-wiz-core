@@ -95,6 +95,9 @@ function Enum.static.EnumSet(_, enum)
         -- 初期化
         function EnumSet:initialize(t)
             t = t or {}
+            if type(t) ~= 'table' then
+                error('invalid value [' .. tostring(t) .. '] table expected, got ' .. type(t))
+            end
             self._values = {}
             for _, v in ipairs(t) do
                 self:add(v)
