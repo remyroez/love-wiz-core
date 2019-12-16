@@ -37,7 +37,7 @@ function Enum.static.EnumValue(_, enum)
             elseif EnumValue:isInstance(v) then
                 self.key = v.key
             else
-                error('invalid value')
+                error('invalid value [' .. tostring(v) .. '] You must choose from ' .. tostring(EnumValue.enum))
             end
         end
 
@@ -95,6 +95,9 @@ function Enum.static.EnumSet(_, enum)
         -- 初期化
         function EnumSet:initialize(t)
             t = t or {}
+            if type(t) ~= 'table' then
+                error('invalid value [' .. tostring(t) .. '] table expected, got ' .. type(t))
+            end
             self._values = {}
             for _, v in ipairs(t) do
                 self:add(v)

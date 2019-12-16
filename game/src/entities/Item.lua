@@ -28,7 +28,7 @@ function Item:initialize(t)
     self.realname = t.realname or ''
 
     -- 種類
-    self.klass = ItemClass(t.class)
+    self.klass = ItemClass(t.class or 'none')
 
     -- 装備可能
     self.equipable = CharacterRequirement(t.equipable)
@@ -49,10 +49,10 @@ function Item:initialize(t)
     self.heal = t.heal or 0
 
     -- 倍打
-    self.slay = MonsterClass(t.slay)
+    self.slay = MonsterClass(t.slay or 'none')
 
     -- 防御
-    self.protection = MonsterClass(t.protection)
+    self.protection = MonsterClass(t.protection or 'none')
 
     -- アーマークラス
     self.ac = ArmorClass(t.ac)

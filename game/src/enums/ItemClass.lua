@@ -1,5 +1,6 @@
 
 return (require 'Enum') {
+    'none',
     'weapon',
     'armor',
     'shield',

@@ -1,5 +1,6 @@
 
 return (require 'Enum') {
+    'none',
     'gain_strength',
     'gain_iq',
     'gain_piety',

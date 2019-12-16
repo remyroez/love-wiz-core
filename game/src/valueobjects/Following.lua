@@ -24,6 +24,11 @@ function Following:__eq(other)
     return util.equaltable(self, other, { 'probability', 'follower' })
 end
 
+-- オーバーライド：呼び出し
+function Following:__call(...)
+    return self:get(...)
+end
+
 -- 取得
 function Following:get(randomizer)
     randomizer = util.randomizer(randomizer)
